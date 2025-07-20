@@ -1,0 +1,23 @@
+---
+version: null
+meta:
+  environment: python
+  toolchain:
+    name: pip
+    version: "3.11"
+build:
+  requirementsPath: requirements.txt
+
+# Если у вас есть Procfile — Amvera запустит именно его,
+# поэтому секцию run можно оставить как есть или даже убрать.
+run:
+  scriptName: main.py
+  persistenceMount: /data
+  containerPort: 80
+
+# Добавляем routes — все запросы на домен пойдут на порт 80
+routes:
+  - path: /
+    port: 80
+    domains:
+      - cardbot-kosarevpg.amvera.io

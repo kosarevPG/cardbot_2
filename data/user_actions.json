@@ -1,0 +1,701 @@
+[
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 18,
+      "reflection_question": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u0431\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u0438\u0442\u044c \u0441\u0435\u0431\u044f \u0437\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u0435 \u044d\u0442\u043e\u0433\u043e \u0440\u0435\u0441\u0443\u0440\u0441\u0430?"
+    },
+    "timestamp": "2025-04-04T13:51:27.973971+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "18",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-04T13:51:40.085305+03:00"
+  },
+  {
+    "user_id": 517423026,
+    "username": "olgaleonchenko",
+    "name": "\u041e\u043b\u044c\u0433\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 17,
+      "reflection_question": "\u0415\u0441\u043b\u0438 \u0431\u044b \u044d\u0442\u0430 \u043a\u0430\u0440\u0442\u0430 \u0431\u044b\u043b\u0430 \u043e\u0442\u0432\u0435\u0442\u043e\u043c \u043d\u0430 \u043c\u043e\u0439 \u0432\u043e\u043f\u0440\u043e\u0441, \u0447\u0442\u043e \u0431\u044b \u043e\u043d\u0430 \u0441\u043a\u0430\u0437\u0430\u043b\u0430?"
+    },
+    "timestamp": "2025-04-04T14:59:06.456306+03:00"
+  },
+  {
+    "user_id": 517423026,
+    "username": "olgaleonchenko",
+    "name": "\u041e\u043b\u044c\u0433\u0430",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "17",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-04T14:59:44.450989+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 16,
+      "reflection_question": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0442\u044c \u044d\u0442\u043e\u0442 \u0440\u0435\u0441\u0443\u0440\u0441 \u0432 \u0441\u0435\u0431\u0435 \u0435\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u043e?"
+    },
+    "timestamp": "2025-04-04T15:33:07.558107+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "16",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-04T15:33:14.491748+03:00"
+  },
+  {
+    "user_id": 806894927,
+    "username": "BelousovaOla",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 39,
+      "reflection_question": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0442\u044c \u044d\u0442\u043e\u0442 \u0440\u0435\u0441\u0443\u0440\u0441 \u0432 \u0441\u0435\u0431\u0435 \u0435\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u043e?"
+    },
+    "timestamp": "2025-04-04T20:46:28.795390+03:00"
+  },
+  {
+    "user_id": 806894927,
+    "username": "BelousovaOla",
+    "name": "",
+    "action": "set_reminder_time",
+    "details": {
+      "reminder_time": "10:00"
+    },
+    "timestamp": "2025-04-04T20:46:40.918818+03:00"
+  },
+  {
+    "user_id": 683970407,
+    "username": "n_vaschenko",
+    "name": "\u041d\u0430\u0434\u0435\u0436\u0434\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 10,
+      "reflection_question": "\u041a\u0430\u043a\u043e\u0439 \u043f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u044d\u043b\u0435\u043c\u0435\u043d\u0442 \u0437\u0434\u0435\u0441\u044c \u043f\u0440\u0435\u043e\u0431\u043b\u0430\u0434\u0430\u0435\u0442, \u0438 \u0447\u0442\u043e \u043e\u043d \u0434\u043b\u044f \u043c\u0435\u043d\u044f \u0437\u043d\u0430\u0447\u0438\u0442?"
+    },
+    "timestamp": "2025-04-05T09:55:30.384941+03:00"
+  },
+  {
+    "user_id": 683970407,
+    "username": "n_vaschenko",
+    "name": "\u041d\u0430\u0434\u0435\u0436\u0434\u0430",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "10",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-05T09:56:30.756473+03:00"
+  },
+  {
+    "user_id": 1887924167,
+    "username": "iro4ka_gabdrik",
+    "name": "\u0418\u0440\u0438\u043d\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 36,
+      "reflection_question": "\u041a\u0430\u043a\u0438\u043c \u043e\u0431\u0440\u0430\u0437\u043e\u043c \u044d\u0442\u043e\u0442 \u0440\u0435\u0441\u0443\u0440\u0441 \u0443\u0436\u0435 \u043f\u0440\u043e\u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u0432 \u043c\u043e\u0435\u0439 \u0436\u0438\u0437\u043d\u0438?"
+    },
+    "timestamp": "2025-04-05T10:33:25.787676+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 1,
+      "reflection_question": "\u041a\u0430\u043a \u043f\u0440\u0438\u0440\u043e\u0434\u0430 \u0447\u0435\u0440\u0435\u0437 \u044d\u0442\u043e\u0442 \u043e\u0431\u0440\u0430\u0437 \u0433\u043e\u0432\u043e\u0440\u0438\u0442 \u0441\u043e \u043c\u043d\u043e\u0439?"
+    },
+    "timestamp": "2025-04-05T11:33:12.433434+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "1",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-05T11:33:36.342582+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 32,
+      "reflection_question": "\u0427\u0442\u043e \u0432 \u044d\u0442\u043e\u043c \u043e\u0431\u0440\u0430\u0437\u0435 \u0434\u0430\u0451\u0442 \u043c\u043d\u0435 \u043e\u0449\u0443\u0449\u0435\u043d\u0438\u0435 \u0443\u0432\u0435\u0440\u0435\u043d\u043d\u043e\u0441\u0442\u0438 \u0438 \u0443\u0441\u0442\u043e\u0439\u0447\u0438\u0432\u043e\u0441\u0442\u0438?"
+    },
+    "timestamp": "2025-04-05T12:53:48.667639+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "32",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-05T12:54:19.524019+03:00"
+  },
+  {
+    "user_id": 517423026,
+    "username": "olgaleonchenko",
+    "name": "\u041e\u043b\u044c\u0433\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 12,
+      "reflection_question": "\u0427\u0442\u043e \u043c\u0435\u0448\u0430\u0435\u0442 \u043c\u043d\u0435 \u043f\u043e\u043b\u043d\u043e\u0446\u0435\u043d\u043d\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u044d\u0442\u043e\u0442 \u0440\u0435\u0441\u0443\u0440\u0441?"
+    },
+    "timestamp": "2025-04-05T18:12:43.533681+03:00"
+  },
+  {
+    "user_id": 517423026,
+    "username": "olgaleonchenko",
+    "name": "\u041e\u043b\u044c\u0433\u0430",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "12",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-05T18:13:01.879559+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 20,
+      "reflection_question": "\u0427\u0442\u043e \u0432 \u044d\u0442\u043e\u0439 \u043a\u0430\u0440\u0442\u0435 \u043d\u0430\u043f\u043e\u043c\u0438\u043d\u0430\u0435\u0442 \u043c\u043d\u0435 \u043e \u0447\u0451\u043c-\u0442\u043e \u0432\u0430\u0436\u043d\u043e\u043c \u0432 \u043c\u043e\u0435\u0439 \u0436\u0438\u0437\u043d\u0438?"
+    },
+    "timestamp": "2025-04-05T20:30:28.185012+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "20",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-05T20:30:55.971507+03:00"
+  },
+  {
+    "user_id": 806894927,
+    "username": "BelousovaOla",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 10,
+      "reflection_question": "\u041a\u0430\u043a \u044d\u0442\u043e\u0442 \u043e\u0431\u0440\u0430\u0437 \u043c\u043e\u0436\u0435\u0442 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0430\u0442\u044c \u043c\u0435\u043d\u044f \u0432 \u0441\u043b\u043e\u0436\u0438\u0432\u0448\u0435\u0439\u0441\u044f \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0438?"
+    },
+    "timestamp": "2025-04-06T07:05:56.305587+03:00"
+  },
+  {
+    "user_id": 806894927,
+    "username": "BelousovaOla",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "10",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T07:06:03.984420+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 16,
+      "reflection_question": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u0431\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u0438\u0442\u044c \u0441\u0435\u0431\u044f \u0437\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u0435 \u044d\u0442\u043e\u0433\u043e \u0440\u0435\u0441\u0443\u0440\u0441\u0430?"
+    },
+    "timestamp": "2025-04-06T09:02:43.484877+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "16",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T09:02:54.961985+03:00"
+  },
+  {
+    "user_id": 1159751971,
+    "username": "",
+    "name": "",
+    "action": "yes_response",
+    "details": {
+      "card_number": "16",
+      "request": "",
+      "response": "\u041b\u044e\u0431\u043e\u0432\u044c \u0431\u043b\u0438\u0437\u043a\u0438\u0445. \u041e\u0442\u0434\u0430\u0432\u0430\u0442\u044c \u0438 \u043f\u0440\u0438\u043d\u0438\u043c\u0430\u0442\u044c."
+    },
+    "timestamp": "2025-04-06T09:04:03.887683+03:00"
+  },
+  {
+    "user_id": 683970407,
+    "username": "n_vaschenko",
+    "name": "\u041d\u0430\u0434\u0435\u0436\u0434\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 6,
+      "reflection_question": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u0431\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u0438\u0442\u044c \u0441\u0435\u0431\u044f \u0437\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u0435 \u044d\u0442\u043e\u0433\u043e \u0440\u0435\u0441\u0443\u0440\u0441\u0430?"
+    },
+    "timestamp": "2025-04-06T09:35:43.173245+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "set_request",
+    "details": {
+      "request": "\u043f\u0440\u0430\u0432\u0434\u0430 \u043b\u0438  \u0442\u043e, \u0447\u0442\u043e \u044f \u0434\u0443\u043c\u0430\u044e???"
+    },
+    "timestamp": "2025-04-06T11:01:29.874418+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 16,
+      "reflection_question": "\u041a\u0430\u043a \u044d\u0442\u043e\u0442 \u043e\u0431\u0440\u0430\u0437 \u043c\u043e\u0436\u0435\u0442 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0430\u0442\u044c \u043c\u0435\u043d\u044f \u0432 \u0441\u043b\u043e\u0436\u0438\u0432\u0448\u0435\u0439\u0441\u044f \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0438?"
+    },
+    "timestamp": "2025-04-06T11:01:30.455461+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "16",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T11:01:45.388977+03:00"
+  },
+  {
+    "user_id": 1264280911,
+    "username": "MariyaKrivets",
+    "name": "",
+    "action": "yes_response",
+    "details": {
+      "card_number": "16",
+      "request": "",
+      "response": "\u043e\u0447\u0435\u043d\u044c \u043f\u043e\u0445\u043e\u0436\u0435 \u043d\u0430 \u0442\u043e, \u043e \u0447\u0435\u043c \u044f \u0434\u0443\u043c\u0430\u044e"
+    },
+    "timestamp": "2025-04-06T11:02:06.077244+03:00"
+  },
+  {
+    "user_id": 1887924167,
+    "username": "iro4ka_gabdrik",
+    "name": "\u0418\u0440\u0438\u043d\u0430",
+    "action": "set_request",
+    "details": {
+      "request": "\u041a\u0430\u043a \u043c\u043d\u0435 \u043d\u0430\u0439\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441 \u0434\u043b\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f \u0437\u0430\u0434\u0443\u043c\u0430\u043d\u043d\u044b\u0445 \u0446\u0435\u043b\u0435\u0439"
+    },
+    "timestamp": "2025-04-06T11:23:45.577777+03:00"
+  },
+  {
+    "user_id": 1887924167,
+    "username": "iro4ka_gabdrik",
+    "name": "\u0418\u0440\u0438\u043d\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 22,
+      "reflection_question": "\u041a\u0430\u043a \u044d\u0442\u043e\u0442 \u043e\u0431\u0440\u0430\u0437 \u043c\u043e\u0436\u0435\u0442 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0430\u0442\u044c \u043c\u0435\u043d\u044f \u0432 \u0441\u043b\u043e\u0436\u0438\u0432\u0448\u0435\u0439\u0441\u044f \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0438?"
+    },
+    "timestamp": "2025-04-06T11:23:46.463660+03:00"
+  },
+  {
+    "user_id": 1887924167,
+    "username": "iro4ka_gabdrik",
+    "name": "\u0418\u0440\u0438\u043d\u0430",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "22",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T11:24:05.955182+03:00"
+  },
+  {
+    "user_id": 1887924167,
+    "username": "iro4ka_gabdrik",
+    "name": "\u0418\u0440\u0438\u043d\u0430",
+    "action": "yes_response",
+    "details": {
+      "card_number": "22",
+      "request": "",
+      "response": "\u041d\u0443\u0436\u043d\u043e \u0434\u0435\u043b\u0430\u0442\u044c \u043f\u043e\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u043e, \u043d\u0435 \u043f\u0440\u0435\u043a\u0440\u0430\u0449\u0430\u044f \u0434\u0435\u043b\u0430\u0442\u044c, \u043a\u0430\u043a \u0432\u043e\u0434\u043e\u043f\u0430\u0434 \u043d\u0435 \u043f\u0440\u0435\u043a\u0440\u0430\u0449\u0430\u0435\u0442 \u0441\u0432\u043e\u0435 \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u0435 \u0442\u0430\u043c \u043c\u043d\u0435 \u043d\u0435\u043b\u044c\u0437\u044f \u043e\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0442\u044c\u0441\u044f \u0447\u0442\u043e\u0431\u044b \u043d\u0435 \u0431\u044b\u043b\u043e \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u0438 \u043e\u0442\u0432\u043b\u0435\u0447\u044c\u0441\u044f"
+    },
+    "timestamp": "2025-04-06T11:25:20.656698+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 33
+    },
+    "timestamp": "2025-04-06T19:35:53.118217+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "initial_response",
+    "details": {
+      "card_number": 33,
+      "request": "",
+      "response": "\u041f\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044f, \u0433\u043e\u0440\u044b, \u0447\u0438\u0441\u0442\u044b\u0439 \u0432\u043e\u0437\u0434\u0443\u0445, \u043f\u0440\u0438\u0440\u043e\u0434\u0430, \u0440\u043e\u0434\u043d\u0438\u043a, \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c"
+    },
+    "timestamp": "2025-04-06T19:36:54.749414+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "first_grok_response",
+    "details": {
+      "card_number": 33,
+      "request": "",
+      "first_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (1/3): \u041a\u0430\u043a\u0438\u0435 \u0438\u0437 \u044d\u0442\u0438\u0445 \u0430\u0441\u0441\u043e\u0446\u0438\u0430\u0446\u0438\u0439 \u0441 \u043f\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044f\u043c\u0438 \u0438 \u043f\u0440\u0438\u0440\u043e\u0434\u043e\u0439 \u0432\u044b \u0445\u043e\u0442\u0435\u043b\u0438 \u0431\u044b \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u044c \u0433\u043b\u0443\u0431\u0436\u0435 \u0432 \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u0435 \u043d\u0430\u0447\u0430\u043b\u0430 \u0447\u0435\u0433\u043e-\u0442\u043e \u043d\u043e\u0432\u043e\u0433\u043e?",
+      "response": "\u041b\u0435\u0441, \u0446\u0432\u0435\u0442\u044b"
+    },
+    "timestamp": "2025-04-06T19:37:30.879184+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "second_grok_response",
+    "details": {
+      "card_number": 33,
+      "request": "",
+      "second_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (2/3): \u041a\u0430\u043a\u0438\u0435 \u0447\u0443\u0432\u0441\u0442\u0432\u0430 \u0438\u043b\u0438 \u043c\u044b\u0441\u043b\u0438 \u0432\u044b\u0437\u044b\u0432\u0430\u044e\u0442 \u0443 \u0432\u0430\u0441 \u043b\u0435\u0441 \u0438 \u0446\u0432\u0435\u0442\u044b \u0432 \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u0435 \u043d\u0430\u0447\u0430\u043b\u0430 \u043d\u043e\u0432\u043e\u0433\u043e \u044d\u0442\u0430\u043f\u0430?",
+      "response": "\u0427\u0443\u0432\u0441\u0442\u0432\u043e \u043f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u043e\u0433\u043e"
+    },
+    "timestamp": "2025-04-06T19:37:53.949530+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "third_grok_response",
+    "details": {
+      "card_number": 33,
+      "request": "",
+      "third_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (3/3): \u0427\u0442\u043e \u0431\u044b \u0442\u044b \u0445\u043e\u0442\u0435\u043b\u0430 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0438\u043b\u0438 \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u043a \u044d\u0442\u043e\u043c\u0443 \u043e\u0431\u0440\u0430\u0437\u0443, \u0447\u0442\u043e\u0431\u044b \u043e\u043d \u0441\u0442\u0430\u043b \u0431\u043b\u0438\u0436\u0435 \u043a \u0442\u0432\u043e\u0435\u043c\u0443 \u0437\u0430\u043f\u0440\u043e\u0441\u0443?",
+      "response": "\u0411\u043e\u0433\u0430\u0442\u0441\u0442\u0432\u043e"
+    },
+    "timestamp": "2025-04-06T19:38:13.978870+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "delayed_feedback_prompt",
+    "details": {
+      "card_number": 33
+    },
+    "timestamp": "2025-04-06T19:38:56.351419+03:00"
+  },
+  {
+    "user_id": 457463804,
+    "username": "SamokhinaPsy",
+    "name": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "33",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T19:39:03.645092+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin-1",
+    "action": "start",
+    "details": {
+      "args": ""
+    },
+    "timestamp": "2025-04-06T21:06:34.763567+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "set_name",
+    "details": {
+      "name": "Admin"
+    },
+    "timestamp": "2025-04-06T21:06:47.386439+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "submit_feedback",
+    "details": {
+      "feedback": "\u0422\u0435\u0441\u0442"
+    },
+    "timestamp": "2025-04-06T21:07:20.947769+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "set_request",
+    "details": {
+      "request": "\u041a\u0430\u043a \u043c\u043d\u0435 \u043d\u0430\u0439\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441?"
+    },
+    "timestamp": "2025-04-06T21:07:36.553777+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "card_request",
+    "details": {
+      "card_number": 16
+    },
+    "timestamp": "2025-04-06T21:07:37.173747+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "initial_response",
+    "details": {
+      "card_number": 16,
+      "request": "\u041a\u0430\u043a \u043c\u043d\u0435 \u043d\u0430\u0439\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441?",
+      "response": "\u041c\u0435\u0434\u0432\u0435\u0434\u0438\u0445\u0430 \u043e\u0431\u043d\u0438\u043c\u0430\u0435\u0442 \u043c\u0435\u0434\u0432\u0435\u0436\u043e\u043d\u043a\u0430. \u0414\u0430\u0436\u0435 \u0432 \u0445\u043e\u043b\u043e\u0434\u0435 \u043c\u043e\u0436\u043d\u043e \u043d\u0430\u0439\u0442\u0438 \u0442\u0435\u043f\u043b\u043e"
+    },
+    "timestamp": "2025-04-06T21:08:08.957750+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "first_grok_response",
+    "details": {
+      "card_number": 16,
+      "request": "\u041a\u0430\u043a \u043c\u043d\u0435 \u043d\u0430\u0439\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441?",
+      "first_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (1/3): \u041a\u0430\u043a\u0438\u0435 \u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u0438 \u0442\u0435\u043f\u043b\u0430 \u0438 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0438 \u0432\u044b \u043c\u043e\u0436\u0435\u0442\u0435 \u043d\u0430\u0439\u0442\u0438 \u0432 \u0441\u0432\u043e\u0435\u0439 \u0436\u0438\u0437\u043d\u0438, \u043d\u0435\u0441\u043c\u043e\u0442\u0440\u044f \u043d\u0430 \u0442\u0440\u0443\u0434\u043d\u043e\u0441\u0442\u0438?",
+      "response": "\u0411\u043b\u0438\u0437\u043a\u0438\u0435"
+    },
+    "timestamp": "2025-04-06T21:08:31.433278+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "second_grok_response",
+    "details": {
+      "card_number": 16,
+      "request": "\u041a\u0430\u043a \u043c\u043d\u0435 \u043d\u0430\u0439\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441?",
+      "second_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (2/3): \u041a\u0430\u043a \u0432\u0430\u0448\u0438 \u0431\u043b\u0438\u0437\u043a\u0438\u0435 \u043f\u043e\u043c\u043e\u0433\u0430\u044e\u0442 \u0432\u0430\u043c \u0447\u0443\u0432\u0441\u0442\u0432\u043e\u0432\u0430\u0442\u044c \u0442\u0435\u043f\u043b\u043e \u0438 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0443 \u0432 \u0442\u0440\u0443\u0434\u043d\u044b\u0435 \u0432\u0440\u0435\u043c\u0435\u043d\u0430?",
+      "response": "\u041e\u043d\u0438 \u043f\u0440\u0438\u043d\u0438\u043c\u0430\u044e\u0442 \u043c\u0435\u043d\u044f \u0442\u0430\u043a\u0438\u043c \u043a\u0430\u043a\u043e\u0439 \u044f \u0435\u0441\u0442\u044c"
+    },
+    "timestamp": "2025-04-06T21:08:49.845552+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "third_grok_response",
+    "details": {
+      "card_number": 16,
+      "request": "\u041a\u0430\u043a \u043c\u043d\u0435 \u043d\u0430\u0439\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441?",
+      "third_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (3/3): \u041a\u0430\u043a \u043f\u0440\u0438\u043d\u044f\u0442\u0438\u0435 \u0432\u0430\u0441 \u0431\u043b\u0438\u0437\u043a\u0438\u043c\u0438 \u043f\u043e\u043c\u043e\u0433\u0430\u0435\u0442 \u0432\u0430\u043c \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u044c \u0432\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u0438\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u044b \u0434\u043b\u044f \u043f\u0440\u0435\u043e\u0434\u043e\u043b\u0435\u043d\u0438\u044f \u0442\u0440\u0443\u0434\u043d\u043e\u0441\u0442\u0435\u0439?",
+      "response": "\u041c\u0435\u043d\u044f \u044d\u0442\u043e \u0443\u0441\u043f\u043e\u043a\u0430\u0438\u0432\u0430\u0435\u0442"
+    },
+    "timestamp": "2025-04-06T21:09:05.541932+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "delayed_feedback_prompt",
+    "details": {
+      "card_number": 16
+    },
+    "timestamp": "2025-04-06T21:10:10.290088+03:00"
+  },
+  {
+    "user_id": 6682555021,
+    "username": "",
+    "name": "Admin",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "16",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T21:37:15.785163+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "start",
+    "details": {
+      "args": ""
+    },
+    "timestamp": "2025-04-06T23:02:33.171566+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 30
+    },
+    "timestamp": "2025-04-06T23:02:41.453817+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "set_request",
+    "details": {
+      "request": "\u041a\u0430\u043a \u0434\u043e\u043b\u0435\u0442\u0435\u0442\u044c \u0434\u043e \u043e\u0442\u043f\u0443\u0441\u043a\u0430"
+    },
+    "timestamp": "2025-04-06T23:03:15.801230+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "card_request",
+    "details": {
+      "card_number": 25
+    },
+    "timestamp": "2025-04-06T23:03:16.350660+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "initial_response",
+    "details": {
+      "card_number": 25,
+      "request": "\u041a\u0430\u043a \u0434\u043e\u043b\u0435\u0442\u0435\u0442\u044c \u0434\u043e \u043e\u0442\u043f\u0443\u0441\u043a\u0430",
+      "response": "\u042d\u0442\u043e \u043e\u043a\u0435\u0430\u043d \u0432 \u043e\u0442\u043f\u0443\u0441\u043a\u0435"
+    },
+    "timestamp": "2025-04-06T23:03:25.819176+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "first_grok_response",
+    "details": {
+      "card_number": 25,
+      "request": "\u041a\u0430\u043a \u0434\u043e\u043b\u0435\u0442\u0435\u0442\u044c \u0434\u043e \u043e\u0442\u043f\u0443\u0441\u043a\u0430",
+      "first_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (1/3): \u041a\u0430\u043a\u0438\u0435 \u0447\u0443\u0432\u0441\u0442\u0432\u0430 \u0432\u044b\u0437\u044b\u0432\u0430\u0435\u0442 \u0443 \u0432\u0430\u0441 \u043d\u0430\u0447\u0430\u043b\u043e \u043e\u0442\u043f\u0443\u0441\u043a\u0430 \u0443 \u043e\u043a\u0435\u0430\u043d\u0430?",
+      "response": "\u0411\u0443\u0440\u043d\u044b\u0435"
+    },
+    "timestamp": "2025-04-06T23:03:34.054644+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "second_grok_response",
+    "details": {
+      "card_number": 25,
+      "request": "\u041a\u0430\u043a \u0434\u043e\u043b\u0435\u0442\u0435\u0442\u044c \u0434\u043e \u043e\u0442\u043f\u0443\u0441\u043a\u0430",
+      "second_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (2/3): \u0427\u0442\u043e \u0438\u043c\u0435\u043d\u043d\u043e \u0432 \u043d\u0430\u0447\u0430\u043b\u0435 \u043e\u0442\u043f\u0443\u0441\u043a\u0430 \u0443 \u043e\u043a\u0435\u0430\u043d\u0430 \u0432\u044b\u0437\u044b\u0432\u0430\u0435\u0442 \u0443 \u0432\u0430\u0441 \u0431\u0443\u0440\u043d\u044b\u0435 \u0447\u0443\u0432\u0441\u0442\u0432\u0430?",
+      "response": "\u0427\u0442\u043e \u044f \u0442\u0430\u043c \u043d\u0430\u043a\u043e\u043d\u0435\u0446 \u0442\u043e \u043e\u043a\u0430\u0436\u0443\u0441\u044c"
+    },
+    "timestamp": "2025-04-06T23:03:51.806123+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "third_grok_response",
+    "details": {
+      "card_number": 25,
+      "request": "\u041a\u0430\u043a \u0434\u043e\u043b\u0435\u0442\u0435\u0442\u044c \u0434\u043e \u043e\u0442\u043f\u0443\u0441\u043a\u0430",
+      "third_question": "\u0412\u043e\u043f\u0440\u043e\u0441 (3/3): \u0427\u0442\u043e \u0437\u043d\u0430\u0447\u0438\u0442 \u0434\u043b\u044f \u0432\u0430\u0441 \"\u043d\u0430\u043a\u043e\u043d\u0435\u0446-\u0442\u043e \u043e\u043a\u0430\u0437\u0430\u0442\u044c\u0441\u044f\" \u0432 \u043e\u0442\u043f\u0443\u0441\u043a\u0435 \u0443 \u043e\u043a\u0435\u0430\u043d\u0430?",
+      "response": "\u042d\u0442\u043e \u0437\u043d\u0430\u0447\u0438\u0442 - \u043e\u0442\u043f\u0443\u0441\u043a \u0431\u0443\u0434\u0435\u0442"
+    },
+    "timestamp": "2025-04-06T23:04:11.874934+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "bonus_request",
+    "details": {
+      "advice": "<b>\ud83d\udc8c \u0422\u044b \u0441\u0438\u043b\u044c\u043d\u0435\u0435, \u0447\u0435\u043c \u0434\u0443\u043c\u0430\u0435\u0448\u044c.</b> \u0412\u0441\u043f\u043e\u043c\u043d\u0438, \u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0442\u044b \u0443\u0436\u0435 \u043f\u0440\u0435\u043e\u0434\u043e\u043b\u0435\u043b\u0430."
+    },
+    "timestamp": "2025-04-06T23:04:20.246813+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "delayed_feedback_prompt",
+    "details": {
+      "card_number": 25
+    },
+    "timestamp": "2025-04-06T23:05:27.270581+03:00"
+  },
+  {
+    "user_id": 392141189,
+    "username": "TopPsyGame1",
+    "name": "",
+    "action": "card_feedback",
+    "details": {
+      "card_number": "25",
+      "feedback": "yes"
+    },
+    "timestamp": "2025-04-06T23:31:17.487997+03:00"
+  },
+  {
+    "user_id": 239719200,
+    "username": "",
+    "name": "\u041c\u0430\u0440\u0438\u043d\u0430",
+    "action": "card_request",
+    "details": {
+      "card_number": 16
+    },
+    "timestamp": "2025-04-06T23:44:16.330146+03:00"
+  }
+]

@@ -1,0 +1,7 @@
+aiogram==3.13.1
+pytz
+requests
+pydantic-core>=2.23.4
+httpx>=0.20.0 # Добавляем httpx
+sqlite-web
+Flask-BasicAuth

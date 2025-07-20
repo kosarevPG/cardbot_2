@@ -1,0 +1,126 @@
+{
+  "users": {
+    "392141189": {
+      "name": "",
+      "username": "TopPsyGame1",
+      "responses": [
+        {
+          "card": "20",
+          "answer": "yes"
+        },
+        {
+          "card": "33",
+          "answer": "yes"
+        },
+        {
+          "card": "25",
+          "answer": "yes"
+        },
+        {
+          "card": "16",
+          "answer": "yes"
+        }
+      ]
+    },
+    "6682555021": {
+      "name": "",
+      "username": "",
+      "responses": [
+        {
+          "card": "23",
+          "answer": "no"
+        },
+        {
+          "card": "39",
+          "answer": "yes"
+        },
+        {
+          "card": "29",
+          "answer": "yes"
+        },
+        {
+          "card": "29",
+          "answer": "no"
+        },
+        {
+          "card": "29",
+          "answer": "yes"
+        },
+        {
+          "card": "35",
+          "answer": "yes"
+        },
+        {
+          "card": "35",
+          "answer": "no"
+        },
+        {
+          "card": "32",
+          "answer": "yes"
+        },
+        {
+          "card": "1",
+          "answer": "yes"
+        },
+        {
+          "card": "6",
+          "answer": "yes"
+        }
+      ]
+    },
+    "806894927": {
+      "name": "\u041e\u043b\u044f",
+      "username": "BelousovaOla",
+      "responses": [
+        {
+          "card": "11",
+          "answer": "yes"
+        }
+      ]
+    },
+    "1264280911": {
+      "name": "\u041c\u0430\u0440\u0438\u044f",
+      "username": "MariyaKrivets",
+      "responses": [
+        {
+          "card": "19",
+          "answer": "yes"
+        }
+      ]
+    },
+    "239719200": {
+      "name": "",
+      "username": "",
+      "responses": [
+        {
+          "card": "40",
+          "answer": "yes"
+        }
+      ]
+    },
+    "1159751971": {
+      "name": "\u0422\u0430\u0442\u044c\u044f\u043d\u0430",
+      "username": "",
+      "responses": [
+        {
+          "card": "12",
+          "answer": "yes"
+        }
+      ]
+    },
+    "517423026": {
+      "name": "",
+      "username": "olgaleonchenko",
+      "responses": [
+        {
+          "card": "19",
+          "answer": "yes"
+        }
+      ]
+    }
+  },
+  "total": {
+    "yes": 16,
+    "no": 3
+  }
+}
