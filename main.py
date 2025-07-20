@@ -110,6 +110,14 @@ from modules.evening_reflection import (
     # reflection_router больше не импортируем здесь
 )
 
+# Модуль Марафона
+from modules.psycho_marathon import (
+    handle_marathon_command,
+    list_marathons_callback,
+    marathon_selection_callback
+)
+
+
 # --- Стандартные импорты ---
 import random
 from datetime import datetime, timedelta, time, date # Добавляем time, date
@@ -870,6 +878,7 @@ def register_handlers(dp: Dispatcher, db: Database, logger_service: LoggingServi
     dp.message.register(name_handler, Command("name"), StateFilter("*"))
     dp.message.register(feedback_handler, Command("feedback"), StateFilter("*"))
     dp.message.register(user_profile_handler, Command("user_profile"), StateFilter("*"))
+    dp.message.register(handle_marathon_command, Command("marathon"), StateFilter("*"))
     # Админские команды
     dp.message.register(users_handler, Command("users"), StateFilter("*"))
     dp.message.register(logs_handler, Command("logs"), StateFilter("*"))
@@ -912,6 +921,10 @@ def register_handlers(dp: Dispatcher, db: Database, logger_service: LoggingServi
     dp.message.register(partial(process_good_moments, db=db, logger_service=logger_service), UserState.waiting_for_good_moments)
     dp.message.register(partial(process_gratitude, db=db, logger_service=logger_service), UserState.waiting_for_gratitude)
     dp.message.register(partial(process_hard_moments, db=db, logger_service=logger_service), UserState.waiting_for_hard_moments)
+
+    # --- Флоу "Марафон" ---
+    dp.callback_query.register(list_marathons_callback, F.data == "list_marathons", StateFilter("*"))
+    dp.callback_query.register(marathon_selection_callback, F.data.startswith("marathon_"), StateFilter("*"))
 
     # --- Обработчики некорректных вводов ---
     async def handle_text_when_waiting_callback(message: types.Message, state: FSMContext):
@@ -987,7 +1000,8 @@ async def main():
         types.BotCommand(command="remind_off", description="🔕 Выключить все напоминания"),
         types.BotCommand(command="share", description="🎁 Поделиться с другом"),
         types.BotCommand(command="feedback", description="✉️ Оставить отзыв / Идею"),
-        types.BotCommand(command="user_profile", description="📊 Мой профиль")
+        types.BotCommand(command="user_profile", description="📊 Мой профиль"),
+        types.BotCommand(command="marathon", description="🏃‍♀️ Начать марафон")
     ]
     # Добавляем админские команды, если они есть
     #if ADMIN_ID:
