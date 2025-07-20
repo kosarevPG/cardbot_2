@@ -31,6 +31,9 @@ class UserState(StatesGroup):
     waiting_for_good_moments = State()
     waiting_for_gratitude = State()
     waiting_for_hard_moments = State()
+    
+    # --- Состояние для Марафона ---
+    in_marathon = State()
 
 
 class UserManager:

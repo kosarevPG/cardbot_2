@@ -5,6 +5,15 @@ import os
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 from config import TIMEZONE, NO_CARD_LIMIT_USERS, DATA_DIR, pytz # Убедимся, что pytz импортирован
+from strings import (
+    RESOURCE_LEVELS, CARD_ALREADY_DRAWN_MESSAGE_WITH_NAME, CARD_ALREADY_DRAWN_MESSAGE_NO_NAME,
+    INITIAL_RESOURCE_QUESTION_WITH_NAME, INITIAL_RESOURCE_QUESTION_NO_NAME, INITIAL_RESOURCE_CONFIRMATION,
+    REQUEST_TYPE_QUESTION_WITH_NAME, REQUEST_TYPE_QUESTION_NO_NAME, REQUEST_TYPE_MENTAL_CONFIRMATION,
+    REQUEST_TYPE_MENTAL_DRAWING, REQUEST_TYPE_TYPED_CONFIRMATION, REQUEST_TYPE_TYPED_PROMPT,
+    REQUEST_EMPTY_ERROR, REQUEST_TOO_SHORT_ERROR, REQUEST_THANKS_MESSAGE,
+    BUTTON_SKIP, BUTTON_MENTAL, BUTTON_TYPED, DEFAULT_NAME, UNKNOWN_TIME, TIME_ERROR,
+    MAIN_MENU_CARD_OF_DAY, MAIN_MENU_EVENING_SUMMARY, MAIN_MENU_UNIVERSE_HINT
+)
 # Импортируем функции из ai_service
 from .ai_service import (
     get_grok_question, get_grok_summary, build_user_profile,
@@ -17,12 +26,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Словарь для маппинга callback -> emoji/text
-RESOURCE_LEVELS = {
-    "resource_good": "😊 Хорошо",
-    "resource_medium": "😐 Средне",
-    "resource_low": "😔 Низко",
-}
+# RESOURCE_LEVELS теперь импортируется из strings.py
 # Путь к папке с картами
 CARDS_DIR = os.path.join(DATA_DIR, "cards") if DATA_DIR != "/data" else "cards"
 if not CARDS_DIR.startswith("/data") and not os.path.exists(CARDS_DIR):
@@ -34,15 +38,15 @@ if not CARDS_DIR.startswith("/data") and not os.path.exists(CARDS_DIR):
 async def get_main_menu(user_id, db: Database):
     """Возвращает основную клавиатуру меню. (ИЗМЕНЕНО)"""
     keyboard = [
-        [types.KeyboardButton(text="✨ Карта дня")],
-        [types.KeyboardButton(text="🌙 Итог дня")]
+        [types.KeyboardButton(text=MAIN_MENU_CARD_OF_DAY)],
+        [types.KeyboardButton(text=MAIN_MENU_EVENING_SUMMARY)]
     ]
     try:
         user_data = db.get_user(user_id)
         # --- ИЗМЕНЕНИЕ: Добавляем кнопку в конец, если бонус доступен ---
         if user_data and user_data.get("bonus_available"):
             # Используем append вместо insert(1, ...)
-            keyboard.append([types.KeyboardButton(text="💌 Подсказка Вселенной")])
+            keyboard.append([types.KeyboardButton(text=MAIN_MENU_UNIVERSE_HINT)])
         # --- КОНЕЦ ИЗМЕНЕНИЯ ---
     except Exception as e:
         logger.error(f"Error getting user data for main menu (user {user_id}): {e}", exc_info=True)
@@ -87,8 +91,8 @@ async def handle_card_request(message: types.Message, state: FSMContext, db: Dat
                 last_req_time_str = last_req_dt_local.strftime('%H:%M %d.%m.%Y')
             except Exception as e:
                 logger.error(f"Error formatting last_request time for user {user_id}: {e}")
-                last_req_time_str = "ошибка времени"
-        text = (f"{name}, ты уже вытянула карту сегодня (в {last_req_time_str} МСК)! Новая будет доступна завтра. ✨" if name else f"Ты уже вытянула карту сегодня (в {last_req_time_str} МСК)! Новая будет доступна завтра. ✨")
+                last_req_time_str = TIME_ERROR
+        text = CARD_ALREADY_DRAWN_MESSAGE_WITH_NAME.format(name=name, time=last_req_time_str) if name else CARD_ALREADY_DRAWN_MESSAGE_NO_NAME.format(time=last_req_time_str)
         logger.info(f"User {user_id}: Sending 'already drawn' message.")
         await message.answer(text, reply_markup=await get_main_menu(user_id, db))
         await state.clear()
@@ -106,8 +110,8 @@ async def ask_initial_resource(message: types.Message, state: FSMContext, db: Da
     user_data = db.get_user(user_id) or {}
     name = user_data.get("name") or ""
     name = name.strip() if isinstance(name, str) else ""
-    text = f"{name}, привет! ✨ Прежде чем мы начнем, как ты сейчас себя чувствуешь? Оцени свой уровень внутреннего ресурса:" if name else "Привет! ✨ Прежде чем мы начнем, как ты сейчас себя чувствуешь? Оцени свой уровень внутреннего ресурса:"
-    buttons = [ types.InlineKeyboardButton(text=label.split()[0], callback_data=key) for key, label in RESOURCE_LEVELS.items() ]
+    text = INITIAL_RESOURCE_QUESTION_WITH_NAME.format(name=name) if name else INITIAL_RESOURCE_QUESTION_NO_NAME
+    buttons = [types.InlineKeyboardButton(text=label.split()[0], callback_data=key) for key, label in RESOURCE_LEVELS.items()]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=[buttons])
     await message.answer(text, reply_markup=keyboard)
     await state.set_state(UserState.waiting_for_initial_resource)
@@ -120,7 +124,7 @@ async def process_initial_resource_callback(callback: types.CallbackQuery, state
     resource_choice_label = RESOURCE_LEVELS.get(resource_choice_key, "Неизвестно")
     await state.update_data(initial_resource=resource_choice_label)
     await logger_service.log_action(user_id, "initial_resource_selected", {"resource": resource_choice_label})
-    await callback.answer(f"Понял, твое состояние: {resource_choice_label.split()[0]}")
+    await callback.answer(INITIAL_RESOURCE_CONFIRMATION.format(resource=resource_choice_label.split()[0]))
     try: await callback.message.edit_reply_markup(reply_markup=None)
     except Exception as e: logger.warning(f"Could not edit message reply markup (initial resource) for user {user_id}: {e}")
     await ask_request_type_choice(callback, state, db, logger_service) # Переход к Шагу 2
@@ -134,8 +138,8 @@ async def ask_request_type_choice(event: types.Message | types.CallbackQuery, st
         user_id = event.from_user.id; message = event
     user_data = db.get_user(user_id) or {}
     name = user_data.get("name") or ""; name = name.strip() if isinstance(name, str) else ""
-    text = (f"{name}, теперь подумай о своем запросе или теме дня.\n" if name else "Теперь подумай о своем запросе или теме дня.\n") + ("Как тебе удобнее?\n\n1️⃣ Сформулировать запрос <b>в уме</b>?\n2️⃣ <b>Написать</b> запрос прямо здесь в чат?\n\n<i>(Если напишешь, я смогу задать более точные вопросы к твоим ассоциациям ✨).</i>")
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=[[ types.InlineKeyboardButton(text="1️⃣ В уме", callback_data="request_type_mental"), types.InlineKeyboardButton(text="2️⃣ Написать", callback_data="request_type_typed"), ]])
+    text = REQUEST_TYPE_QUESTION_WITH_NAME.format(name=name) if name else REQUEST_TYPE_QUESTION_NO_NAME
+    keyboard = types.InlineKeyboardMarkup(inline_keyboard=[[ types.InlineKeyboardButton(text=BUTTON_MENTAL, callback_data="request_type_mental"), types.InlineKeyboardButton(text=BUTTON_TYPED, callback_data="request_type_typed"), ]])
     await message.answer(text, reply_markup=keyboard, parse_mode="HTML")
     await state.set_state(UserState.waiting_for_request_type_choice)
 
@@ -151,13 +155,13 @@ async def process_request_type_callback(callback: types.CallbackQuery, state: FS
     except Exception as e: logger.warning(f"Could not edit message reply markup (request type) for user {user_id}: {e}")
 
     if request_type == "request_type_mental":
-        await callback.answer("Хорошо, держи запрос в голове.")
-        await callback.message.answer("Понял. Сейчас вытяну для тебя карту...")
+        await callback.answer(REQUEST_TYPE_MENTAL_CONFIRMATION)
+        await callback.message.answer(REQUEST_TYPE_MENTAL_DRAWING)
         # Передаем user_id явно
         await draw_card_direct(callback.message, state, db, logger_service, user_id=user_id) # Переход к Шагу 3b
     elif request_type == "request_type_typed":
-        await callback.answer("Отлично, жду твой запрос.")
-        await callback.message.answer("Напиши, пожалуйста, свой запрос к карте (1-2 предложения):")
+        await callback.answer(REQUEST_TYPE_TYPED_CONFIRMATION)
+        await callback.message.answer(REQUEST_TYPE_TYPED_PROMPT)
         await state.set_state(UserState.waiting_for_request_text_input) # Переход к Шагу 3a
 
 # --- Шаг 3: Обработка текстового запроса ---
@@ -165,11 +169,11 @@ async def process_request_text(message: types.Message, state: FSMContext, db: Da
     """Шаг 3а: Получает текстовый запрос пользователя и тянет карту."""
     user_id = message.from_user.id # <<< ID пользователя из его сообщения
     request_text = message.text.strip()
-    if not request_text: await message.answer("Запрос не может быть пустым..."); return
-    if len(request_text) < 5: await message.answer("Пожалуйста, сформулируй запрос чуть подробнее..."); return
+    if not request_text: await message.answer(REQUEST_EMPTY_ERROR); return
+    if len(request_text) < 5: await message.answer(REQUEST_TOO_SHORT_ERROR); return
     await state.update_data(user_request=request_text)
     await logger_service.log_action(user_id, "request_text_provided", {"request": request_text})
-    await message.answer("Спасибо! ✨ Сейчас вытяну карту для твоего запроса...")
+    await message.answer(REQUEST_THANKS_MESSAGE)
     # Передаем user_id явно
     await draw_card_direct(message, state, db, logger_service, user_id=user_id) # Переход к Шагу 3b
 

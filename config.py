@@ -1,21 +1,21 @@
 import pytz
-import os # Добавляем импорт модуля os
+import os 
 
-# Токены и настройки
-# Вместо прямого ключа, теперь берем его из переменной окружения
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHANNEL_ID = "@TopPsyGame"
 BOT_LINK = "t.me/choose_a_card_bot"
 TIMEZONE = pytz.timezone("Europe/Moscow")
-ADMIN_ID = 6682555021 # Можно оставить как есть, если это не чувствительный ID, или тоже вынести в env
+ADMIN_ID = 6682555021 
 
-# --- ИЗМЕНЕНО: Настройки для YandexGPT ---
+# --- Google Sheets ---
+GOOGLE_SHEET_NAME = "MarathonContent"
+
+# --- YandexGPT ---
 YANDEX_API_KEY = os.getenv("YANDEX_API_KEY")
-YANDEX_FOLDER_ID = os.getenv("YANDEX_FOLDER_ID") # Также выносим Folder ID, так как он часть конфига Yandex
+YANDEX_FOLDER_ID = os.getenv("YANDEX_FOLDER_ID") 
 YANDEX_GPT_URL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
-# --- КОНЕЦ ИЗМЕНЕНИЯ ---
 
-GROK_API_KEY = os.getenv("GROK_API_KEY") # Настройте это имя переменной в .env
+GROK_API_KEY = os.getenv("GROK_API_KEY")
 GROK_API_URL = "https://api.x.ai/v1/chat/completions"
 
 NO_CARD_LIMIT_USERS = [6682555021, 392141189, 239719200]
@@ -45,3 +45,87 @@ UNIVERSE_ADVICE = [
     "<b>💌 Смелость — твоя природа.</b> Сделай то, что пугает, и увидишь, как открываются новые горизонты.",
     "<b>💌 Ресурсы не заканчиваются, они перетекают.</b> Подключись к потоку жизни и доверься её ритму."
 ]
+
+
+# Настройки обучающих курсов
+TUTORIALS = {
+    "mak_tutorial": {
+        "name": "Что такое МАК? (Обучение)",
+    }
+}
+
+# Настройки марафонов
+MARATHONS = {
+    "internal_conflicts": {
+        "name": "Психосоматика внутренних конфликтов",
+        "chat_id": "your_internal_conflicts_chat_id_here",  # Замените на ID канала
+        "start_date": "2025-04-10",  # Начало марафона
+        "duration_days": 7,  # Длительность марафона (7 дней)
+        "repeat_interval": 30,  # Повторять каждые 30 дней
+        "content_folder": "internal_conflicts",
+        "schedule_file": "internal_conflicts.json"
+    },
+    "excess_weight": {
+        "name": "Психосоматика лишнего веса: что скрывают кг?",
+        "chat_id": "your_excess_weight_chat_id_here",
+        "start_date": "2025-04-17",
+        "duration_days": 4,
+        "repeat_interval": 30,
+        "content_folder": "excess_weight",
+        "schedule_file": "excess_weight.json"
+    },
+    "relationships": {
+        "name": "Психосоматика отношений: узлы, которые оставляют люди",
+        "chat_id": "your_relationships_chat_id_here",
+        "start_date": "2025-04-24",
+        "duration_days": 6,
+        "repeat_interval": 30,
+        "content_folder": "relationships",
+        "schedule_file": "relationships.json"
+    },
+    "self_worth": {
+        "name": "Психосоматика самоценности: разреши себе быть",
+        "chat_id": "your_self_worth_chat_id_here",
+        "start_date": "2025-05-01",
+        "duration_days": 5,
+        "repeat_interval": 30,
+        "content_folder": "self_worth",
+        "schedule_file": "self_worth.json"
+    },
+    "success": {
+        "name": "Психосоматика успеха: от сомнений к победам",
+        "chat_id": "your_success_chat_id_here",
+        "start_date": "2025-05-08",
+        "duration_days": 7,
+        "repeat_interval": 30,
+        "content_folder": "success",
+        "schedule_file": "success.json"
+    },
+    "health": {
+        "name": "Психосоматика здоровья: ключи к исцелению",
+        "chat_id": "your_health_chat_id_here",
+        "start_date": "2025-05-15",
+        "duration_days": 6,
+        "repeat_interval": 30,
+        "content_folder": "health",
+        "schedule_file": "health.json"
+    },
+    "sexuality": {
+        "name": "Психосоматика сексуальности: путь к наслаждению",
+        "chat_id": "your_sexuality_chat_id_here",
+        "start_date": "2025-05-22",
+        "duration_days": 5,
+        "repeat_interval": 30,
+        "content_folder": "sexuality",
+        "schedule_file": "sexuality.json"
+    },
+    "money": {
+        "name": "Психосоматика денег: от блоков к потокам",
+        "chat_id": "your_money_chat_id_here",
+        "start_date": "2025-05-29",
+        "duration_days": 7,
+        "repeat_interval": 30,
+        "content_folder": "money",
+        "schedule_file": "money.json"
+    }
+}

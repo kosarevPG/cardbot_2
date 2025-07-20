@@ -3,6 +3,11 @@
 import asyncio
 from datetime import datetime
 from config import TIMEZONE
+from strings import (
+    MORNING_REMINDER_MESSAGE_WITH_NAME, MORNING_REMINDER_MESSAGE_NO_NAME,
+    EVENING_REMINDER_MESSAGE_WITH_NAME, EVENING_REMINDER_MESSAGE_NO_NAME,
+    DEFAULT_NAME
+)
 import logging
 # Импортируем функцию для получения меню
 from modules.card_of_the_day import get_main_menu
@@ -30,7 +35,7 @@ class NotificationService:
                     # Проверка утреннего напоминания (Карта Дня)
                     morning_time = times.get('morning')
                     if morning_time == current_time_str and self.db.is_card_available(user_id, today):
-                        text = f"{name}, привет! Пришло время вытянуть свою карту дня. ✨" if name else "Привет! Пришло время вытянуть свою карту дня. ✨"
+                        text = MORNING_REMINDER_MESSAGE_WITH_NAME.format(name=name) if name else MORNING_REMINDER_MESSAGE_NO_NAME
                         try:
                             # Отправляем с клавиатурой, чтобы сразу можно было нажать
                             await self.bot.send_message(user_id, text, reply_markup=await get_main_menu(user_id, self.db))
@@ -46,7 +51,7 @@ class NotificationService:
                     # reflection_exists = await self.db.check_evening_reflection_exists(user_id, today_str) # Нужен новый метод в DB
                     # if evening_time == current_time_str and not reflection_exists:
                     if evening_time == current_time_str: # Пока без проверки на существование
-                        text = f"{name}, привет! Пришло время подвести итог дня 🌙" if name else "Привет! Пришло время подвести итог дня 🌙"
+                        text = EVENING_REMINDER_MESSAGE_WITH_NAME.format(name=name) if name else EVENING_REMINDER_MESSAGE_NO_NAME
                         try:
                             # Отправляем с клавиатурой
                             await self.bot.send_message(user_id, text, reply_markup=await get_main_menu(user_id, self.db))

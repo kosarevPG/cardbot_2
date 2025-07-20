@@ -15,6 +15,22 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
+# --- Глобальная функция декодирования timestamp ---
+def decode_timestamp(val):
+    if val is None:
+        return None
+    try:
+        if isinstance(val, bytes):
+            val_str = val.decode('utf-8')
+        else:
+            val_str = str(val)
+        if val_str.endswith('Z'):
+            val_str = val_str[:-1] + '+00:00'
+        return datetime.fromisoformat(val_str)
+    except (ValueError, TypeError, AttributeError) as e:
+        logger.error(f"Error decoding timestamp '{val}': {e}")
+        return None
+
 # --- КЛАСС Database ---
 class Database:
     def __init__(self, path="/data/bot.db"):
@@ -42,27 +58,6 @@ class Database:
 
             # --- ИЗМЕНЕНИЕ: Конвертеры ---
             # Конвертер для timestamp
-            def decode_timestamp(val):
-                if val is None: return None
-                try:
-                    val_str = val.decode('utf-8')
-                    if val_str.endswith('Z'): val_str = val_str[:-1] + '+00:00'
-                    return datetime.fromisoformat(val_str)
-                except (ValueError, TypeError, AttributeError) as e:
-                    logger.error(f"Error decoding timestamp '{val}': {e}")
-                    return None
-
-            # Конвертер для date (сработает для колонок типа DATE)
-            def decode_date(val):
-                 if val is None: return None
-                 try:
-                     return date.fromisoformat(val.decode('utf-8'))
-                 except (ValueError, TypeError) as e:
-                     logger.error(f"Error decoding date '{val}': {e}")
-                     return None
-
-            sqlite3.register_converter("timestamp", decode_timestamp)
-            sqlite3.register_converter("DATE", decode_date) # Регистрируем для типа DATE
             # УБИРАЕМ ошибочный универсальный конвертер для TEXT
             # sqlite3.register_converter("TEXT", decode_date)
             # --- КОНЕЦ ИЗМЕНЕНИЯ ---

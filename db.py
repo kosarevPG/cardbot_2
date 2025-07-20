@@ -15,6 +15,42 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
+# --- Конвертеры данных ---
+def decode_timestamp(val):
+    """Декодирует байтовую строку из БД в объект datetime."""
+    if val is None: return None
+    try:
+        val_str = val.decode('utf-8')
+        # Обработка 'Z' для совместимости с UTC
+        if val_str.endswith('Z'): val_str = val_str[:-1] + '+00:00'
+        return datetime.fromisoformat(val_str)
+    except (ValueError, TypeError, AttributeError) as e:
+        logger.error(f"Error decoding timestamp '{val}': {e}")
+        # Попытка разобрать как строку без декодирования, если это уже строка
+        try:
+            if isinstance(val, str):
+                if val.endswith('Z'): val = val[:-1] + '+00:00'
+                return datetime.fromisoformat(val)
+        except (ValueError, TypeError):
+             return None # Возвращаем None, если все попытки провалились
+    return None
+
+def decode_date(val):
+    """Декодирует байтовую строку из БД в объект date."""
+    if val is None: return None
+    try:
+        return date.fromisoformat(val.decode('utf-8'))
+    except (ValueError, TypeError, AttributeError) as e:
+        logger.error(f"Error decoding date '{val}': {e}")
+        return None
+
+# Регистрация адаптеров и конвертеров
+sqlite3.register_adapter(datetime, lambda val: val.isoformat())
+sqlite3.register_adapter(date, lambda val: val.isoformat())
+sqlite3.register_converter("timestamp", decode_timestamp)
+sqlite3.register_converter("DATE", decode_date)
+
+
 # --- КЛАСС Database ---
 class Database:
     def __init__(self, path="/data/bot.db"):
@@ -35,38 +71,6 @@ class Database:
             # Используем нужные detect_types
             self.conn = sqlite3.connect(path, check_same_thread=False, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
             logger.info(f"Database connection initialized at path: {path}")
-
-            # Адаптеры для сохранения datetime и date как ISO строк
-            sqlite3.register_adapter(datetime, lambda val: val.isoformat())
-            sqlite3.register_adapter(date, lambda val: val.isoformat())
-
-            # --- ИЗМЕНЕНИЕ: Конвертеры ---
-            # Конвертер для timestamp
-            def decode_timestamp(val):
-                if val is None: return None
-                try:
-                    val_str = val.decode('utf-8')
-                    if val_str.endswith('Z'): val_str = val_str[:-1] + '+00:00'
-                    return datetime.fromisoformat(val_str)
-                except (ValueError, TypeError, AttributeError) as e:
-                    logger.error(f"Error decoding timestamp '{val}': {e}")
-                    return None
-
-            # Конвертер для date (сработает для колонок типа DATE)
-            def decode_date(val):
-                 if val is None: return None
-                 try:
-                     return date.fromisoformat(val.decode('utf-8'))
-                 except (ValueError, TypeError) as e:
-                     logger.error(f"Error decoding date '{val}': {e}")
-                     return None
-
-            sqlite3.register_converter("timestamp", decode_timestamp)
-            sqlite3.register_converter("DATE", decode_date) # Регистрируем для типа DATE
-            # УБИРАЕМ ошибочный универсальный конвертер для TEXT
-            # sqlite3.register_converter("TEXT", decode_date)
-            # --- КОНЕЦ ИЗМЕНЕНИЯ ---
-
             self.conn.row_factory = sqlite3.Row
             self.bot = None # Устанавливается в main.py
 
@@ -661,13 +665,3 @@ class Database:
                 logger.info("Database connection closed.")
             except sqlite3.Error as e:
                 logger.error(f"Error closing database connection: {e}", exc_info=True)
-
-# --- КОНЕЦ КЛАССА ---
-
-# Импорт pytz
-# ... (как было) ...
-try:
-    import pytz
-except ImportError:
-    pytz = None
-    logger.warning("pytz library not found. Timezone conversions might be affected if database stores naive datetimes or if TIMEZONE config is used.")

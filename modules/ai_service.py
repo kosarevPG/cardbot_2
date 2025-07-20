@@ -6,6 +6,10 @@ import random
 import asyncio
 # --- ИЗМЕНЕНО: импортируем переменные YandexGPT ---
 from config import YANDEX_API_KEY, YANDEX_FOLDER_ID, YANDEX_GPT_URL, TIMEZONE
+from strings import (
+    AI_UNIVERSAL_QUESTIONS, AI_FALLBACK_QUESTION, AI_QUESTION_PREFIX,
+    NO_DATA, NOT_YET, NOT_UPDATED, DEFAULT_NAME
+)
 from datetime import datetime, date 
 import re
 import logging
@@ -81,12 +85,7 @@ async def get_grok_question(user_id, user_request, user_response, feedback_type,
     """
     if db is None:
         logger.error("Database object 'db' is required for get_grok_question")
-        universal_questions = {
-            1: "Какие самые сильные чувства или ощущения возникают, глядя на эту карту?",
-            2: "Если бы эта карта могла говорить, какой главный совет она бы дала тебе сейчас?",
-            3: "Какой один маленький шаг ты могла бы сделать сегодня, вдохновившись этими размышлениями?"
-        }
-        fallback_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Что ещё приходит на ум?')}"
+        fallback_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Что ещё приходит на ум?'))
         return fallback_question
 
     headers = {
@@ -158,11 +157,7 @@ async def get_grok_question(user_id, user_request, user_response, feedback_type,
         ]
     }
 
-    universal_questions = {
-        1: "Какие самые сильные чувства или ощущения возникают, глядя на эту карту?",
-        2: "Если бы эта карта могла говорить, какой главный совет она бы дала тебе сейчас?",
-        3: "Какой один маленький шаг ты могла бы сделать сегодня, вдохновившись этими размышлениями?"
-    }
+    # AI_UNIVERSAL_QUESTIONS теперь импортируется из strings.py
 
     max_retries = 3
     base_delay = 1.0
@@ -202,30 +197,30 @@ async def get_grok_question(user_id, user_request, user_response, feedback_type,
                     logger.warning(f"YandexGPT generated a repeated question for step {step}, user {user_id}. Question: '{question_text}'. Using fallback.")
                     raise ValueError("Repeated question generated")
 
-            final_question = f"Вопрос ({step}/3): {question_text}"
+            final_question = AI_QUESTION_PREFIX.format(step=step) + question_text
             break
 
         except httpx.TimeoutException:
             logger.warning(f"YandexGPT API request Q{step} timed out for user {user_id} (Attempt {attempt + 1})")
             if attempt == max_retries - 1:
-                final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Что ещё приходит на ум, когда ты смотришь на эту карту?')}"
+                final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Что ещё приходит на ум, когда ты смотришь на эту карту?'))
         except httpx.HTTPStatusError as e:
              if e.response.status_code in [429] or e.response.status_code >= 500:
                  logger.warning(f"YandexGPT API returned {e.response.status_code} for Q{step} (User: {user_id}, Attempt: {attempt + 1}). Retrying...")
                  if attempt == max_retries - 1:
-                     final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Какие детали карты привлекают твоё внимание больше всего?')}"
+                     final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Какие детали карты привлекают твоё внимание больше всего?'))
              else:
                  logger.error(f"YandexGPT API request Q{step} failed with unrecoverable status {e.response.status_code} for user {user_id}: {e}")
-                 final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Как твои ощущения изменились за время размышления над картой?')}"
+                 final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Как твои ощущения изменились за время размышления над картой?'))
                  break
         except (ValueError, KeyError, IndexError) as e:
             logger.error(f"Failed to parse YandexGPT API response Q{step} or invalid data/repeat for user {user_id}: {e}")
-            final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Как твои ощущения изменились за время размышления над картой?')}"
+            final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Как твои ощущения изменились за время размышления над картой?'))
             break
         except Exception as e:
             logger.exception(f"An unexpected error occurred in get_grok_question Q{step} for user {user_id} during attempt {attempt + 1}: {e}")
             if attempt == max_retries - 1:
-                final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Попробуй описать свои мысли одним словом. Что это за слово?')}"
+                final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Попробуй описать свои мысли одним словом. Что это за слово?'))
 
         if attempt < max_retries - 1 and final_question is None:
             delay = base_delay * (2 ** attempt)
@@ -233,11 +228,11 @@ async def get_grok_question(user_id, user_request, user_response, feedback_type,
             await asyncio.sleep(delay)
         elif final_question is None:
              logger.error(f"YandexGPT API request Q{step} failed after {max_retries} attempts for user {user_id}.")
-             final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Как бы ты описала свои чувства сейчас?')}"
+             final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Как бы ты описала свои чувства сейчас?'))
 
     if final_question is None:
         logger.error(f"Critical logic error: final_question is None after retry loop for Q{step}, user {user_id}. Returning default fallback.")
-        final_question = f"Вопрос ({step}/3): {universal_questions.get(step, 'Что еще важно для тебя в этой ситуации?')}"
+        final_question = AI_FALLBACK_QUESTION.format(step=step, question=AI_UNIVERSAL_QUESTIONS.get(step, 'Что еще важно для тебя в этой ситуации?'))
 
     return final_question
 
