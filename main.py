@@ -41,10 +41,11 @@ from config import TOKEN, ADMIN_ID, DATA_DIR
 from database.db import Database
 from modules.logging_service import LoggingService
 from modules.notification_service import NotificationService
-from modules.user_management import UserState, UserManager
+from modules.user_management import UserState, UserManager, QuizState
 from modules.card_of_the_day import *
 from modules.evening_reflection import *
 from modules.psycho_marathon import *
+from modules.quiz_handler import *
 from strings import *
 
 # --- Настройка логирования ---
@@ -113,13 +114,16 @@ def register_handlers(dp: Dispatcher):
 
     # Текстовые кнопки меню
     dp.message.register(handle_training_command, F.text == "🎓 Обучение", StateFilter("*"))
+    dp.message.register(handle_marathon_command, F.text == "🏃‍♀️ Марафоны", StateFilter("*"))
     dp.message.register(handle_card_request, F.text == "✨ Карта дня", StateFilter("*"))
     dp.message.register(start_evening_reflection, F.text == "🌙 Итог дня", StateFilter("*"))
     
     # Флоу марафонов и обучения
     dp.callback_query.register(list_programs_callback, F.data.startswith("list_"), StateFilter("*"))
     dp.callback_query.register(program_selection_callback, F.data.startswith("program_"), StateFilter("*"))
+    logger.info("Регистрирую next_step_callback хэндлер...")
     dp.callback_query.register(next_step_callback, F.data.startswith("next_step_"), StateFilter("*"))
+    logger.info("next_step_callback хэндлер зарегистрирован успешно")
 
     # Флоу Карты Дня
     dp.callback_query.register(process_initial_resource_callback, UserState.waiting_for_initial_resource, F.data.startswith("resource_"))
@@ -138,6 +142,12 @@ def register_handlers(dp: Dispatcher):
     dp.message.register(process_good_moments, UserState.waiting_for_good_moments)
     dp.message.register(process_gratitude, UserState.waiting_for_gratitude)
     dp.message.register(process_hard_moments, UserState.waiting_for_hard_moments)
+    
+    # --- Флоу Опросника ---
+    dp.callback_query.register(process_q1_callback, F.data.startswith("quiz_q1_"), StateFilter(QuizState.q1_truth_myth))
+    dp.callback_query.register(process_q2_continue_callback, F.data == "quiz_continue_to_q3", StateFilter(QuizState.q2_quiz))
+    dp.callback_query.register(process_q3_callback, F.data.startswith("quiz_q3_"), StateFilter(QuizState.q3_self_reflection))
+    dp.message.register(process_q4_text, StateFilter(QuizState.q4_feedback))
     
     logger.info("Handlers registered successfully.")
 

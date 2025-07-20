@@ -36,22 +36,20 @@ if not CARDS_DIR.startswith("/data") and not os.path.exists(CARDS_DIR):
 
 # --- Основная клавиатура (ИЗМЕНЕНО) ---
 async def get_main_menu(user_id, db: Database):
-    """Возвращает основную клавиатуру меню. (ИЗМЕНЕНО)"""
+    """Возвращает основную клавиатуру меню."""
     keyboard = [
-        [types.KeyboardButton(text=MAIN_MENU_CARD_OF_DAY)],
-        [types.KeyboardButton(text=MAIN_MENU_EVENING_SUMMARY)]
+        [types.KeyboardButton(text="✨ Карта дня")],
+        [types.KeyboardButton(text="🎓 Обучение"), types.KeyboardButton(text="🏃‍♀️ Марафоны")],
+        [types.KeyboardButton(text="🌙 Итог дня")]
     ]
     try:
         user_data = db.get_user(user_id)
-        # --- ИЗМЕНЕНИЕ: Добавляем кнопку в конец, если бонус доступен ---
         if user_data and user_data.get("bonus_available"):
-            # Используем append вместо insert(1, ...)
-            keyboard.append([types.KeyboardButton(text=MAIN_MENU_UNIVERSE_HINT)])
-        # --- КОНЕЦ ИЗМЕНЕНИЯ ---
+            keyboard.append([types.KeyboardButton(text="💌 Подсказка Вселенной")])
     except Exception as e:
         logger.error(f"Error getting user data for main menu (user {user_id}): {e}", exc_info=True)
-    # Используем persistent=True для постоянного отображения
-    return types.ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True, persistent=True)
+    
+    return types.ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
 
 # ================================

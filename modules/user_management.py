@@ -36,6 +36,13 @@ class UserState(StatesGroup):
     in_marathon = State()
 
 
+class QuizState(StatesGroup):
+    q1_truth_myth = State()
+    q2_quiz = State()
+    q3_self_reflection = State()
+    q4_feedback = State()
+
+
 class UserManager:
     # --- Код UserManager остается БЕЗ ИЗМЕНЕНИЙ ---
     def __init__(self, db):

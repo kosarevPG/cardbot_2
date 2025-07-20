@@ -22,7 +22,7 @@ NO_CARD_LIMIT_USERS = [6682555021, 392141189, 239719200]
 NO_LOGS_USERS = [6682555021, 392141189, 239719200, 7494824111,171507422,138192985]
 DATA_DIR = "/data"
 
-# Список советов Вселенной
+# Список советов Вселенной (без изменений)
 UNIVERSE_ADVICE = [
     "<b>💌 Ты — источник силы.</b> Всё, что тебе нужно, уже внутри. Просто доверься себе и сделай первый шаг.",
     "<b>💌 Дыши глубже.</b> В каждом вдохе — возможность начать заново.",
@@ -51,81 +51,36 @@ UNIVERSE_ADVICE = [
 TUTORIALS = {
     "mak_tutorial": {
         "name": "Что такое МАК? (Обучение)",
+    },
+     "abstract_tutorial": {
+        "name": "Абстрактные карты: просто о сложном",
     }
 }
 
 # Настройки марафонов
 MARATHONS = {
+    "money": {
+        "name": "Психосоматика денег: от блоков к потокам",
+    },
     "internal_conflicts": {
         "name": "Психосоматика внутренних конфликтов",
-        "chat_id": "your_internal_conflicts_chat_id_here",  # Замените на ID канала
-        "start_date": "2025-04-10",  # Начало марафона
-        "duration_days": 7,  # Длительность марафона (7 дней)
-        "repeat_interval": 30,  # Повторять каждые 30 дней
-        "content_folder": "internal_conflicts",
-        "schedule_file": "internal_conflicts.json"
     },
     "excess_weight": {
         "name": "Психосоматика лишнего веса: что скрывают кг?",
-        "chat_id": "your_excess_weight_chat_id_here",
-        "start_date": "2025-04-17",
-        "duration_days": 4,
-        "repeat_interval": 30,
-        "content_folder": "excess_weight",
-        "schedule_file": "excess_weight.json"
     },
     "relationships": {
         "name": "Психосоматика отношений: узлы, которые оставляют люди",
-        "chat_id": "your_relationships_chat_id_here",
-        "start_date": "2025-04-24",
-        "duration_days": 6,
-        "repeat_interval": 30,
-        "content_folder": "relationships",
-        "schedule_file": "relationships.json"
     },
     "self_worth": {
         "name": "Психосоматика самоценности: разреши себе быть",
-        "chat_id": "your_self_worth_chat_id_here",
-        "start_date": "2025-05-01",
-        "duration_days": 5,
-        "repeat_interval": 30,
-        "content_folder": "self_worth",
-        "schedule_file": "self_worth.json"
     },
     "success": {
         "name": "Психосоматика успеха: от сомнений к победам",
-        "chat_id": "your_success_chat_id_here",
-        "start_date": "2025-05-08",
-        "duration_days": 7,
-        "repeat_interval": 30,
-        "content_folder": "success",
-        "schedule_file": "success.json"
     },
     "health": {
         "name": "Психосоматика здоровья: ключи к исцелению",
-        "chat_id": "your_health_chat_id_here",
-        "start_date": "2025-05-15",
-        "duration_days": 6,
-        "repeat_interval": 30,
-        "content_folder": "health",
-        "schedule_file": "health.json"
     },
     "sexuality": {
         "name": "Психосоматика сексуальности: путь к наслаждению",
-        "chat_id": "your_sexuality_chat_id_here",
-        "start_date": "2025-05-22",
-        "duration_days": 5,
-        "repeat_interval": 30,
-        "content_folder": "sexuality",
-        "schedule_file": "sexuality.json"
-    },
-    "money": {
-        "name": "Психосоматика денег: от блоков к потокам",
-        "chat_id": "your_money_chat_id_here",
-        "start_date": "2025-05-29",
-        "duration_days": 7,
-        "repeat_interval": 30,
-        "content_folder": "money",
-        "schedule_file": "money.json"
     }
 }

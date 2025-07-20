@@ -152,6 +152,18 @@ class Database:
                         timestamp TEXT NOT NULL,
                         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
                     )""")
+                # Таблица quiz_results
+                self.conn.execute("""
+                    CREATE TABLE IF NOT EXISTS quiz_results (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id INTEGER NOT NULL,
+                        quiz_id TEXT NOT NULL,
+                        question_id TEXT NOT NULL,
+                        answer TEXT,
+                        is_correct BOOLEAN,
+                        timestamp TEXT NOT NULL,
+                        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+                    )""")
 
             logger.info("Base table structures checked/created successfully.")
         except sqlite3.Error as e:
