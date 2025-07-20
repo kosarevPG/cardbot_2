@@ -57,8 +57,31 @@ import pytz # Убедимся, что pytz импортирован
 
 # --- Импорты из проекта ---
 from config import (
-    TOKEN, CHANNEL_ID, ADMIN_ID, UNIVERSE_ADVICE, BOT_LINK,
+    TOKEN, CHANNEL_ID, ADMIN_ID, BOT_LINK,
     TIMEZONE, NO_LOGS_USERS, DATA_DIR
+)
+from strings import (
+    UNIVERSE_ADVICE_LIST, START_NEW_USER_MESSAGE, START_EXISTING_USER_MESSAGE, REFERRAL_BONUS_MESSAGE,
+    REMIND_PURPOSE_TEXT, REMIND_INSTRUCTION_TEXT, REMIND_MESSAGE, MORNING_REMINDER_TEXT, MORNING_REMINDER_DISABLED,
+    EVENING_REMINDER_TEXT, EVENING_REMINDER_DISABLED, REMIND_OFF_SUCCESS_MESSAGE, REMIND_OFF_ERROR_MESSAGE,
+    SHARE_MESSAGE, NAME_CURRENT_MESSAGE, NAME_NEW_MESSAGE, NAME_INSTRUCTION, FEEDBACK_MESSAGE,
+    USER_PROFILE_HEADER, USER_PROFILE_STATE_SECTION, USER_PROFILE_RESOURCE_SECTION, USER_PROFILE_REFLECTION_SECTION,
+    USER_PROFILE_STATS_SECTION, USER_PROFILE_FOOTER, ADMIN_ONLY_MESSAGE, ADMIN_USER_PROFILE_USAGE,
+    ADMIN_USER_PROFILE_INVALID_ID, ADMIN_USER_PROFILE_NOT_FOUND, ADMIN_USER_PROFILE_HEADER,
+    ADMIN_USER_PROFILE_STATE, ADMIN_USER_PROFILE_RESOURCE, ADMIN_USER_PROFILE_REFLECTION,
+    ADMIN_USER_PROFILE_STATS, ADMIN_USER_PROFILE_FOOTER, USERS_NO_USERS_MESSAGE, USERS_NO_FILTERED_MESSAGE,
+    USERS_NO_NAME, USERS_NO_USERNAME, USERS_NO_ACTIONS, USERS_TIME_ERROR, BROADCAST_NO_TEXT_MESSAGE,
+    BROADCAST_TEST_MESSAGE, BROADCAST_NO_USER_MESSAGE, BROADCAST_START_MESSAGE, BROADCAST_RESULT_MESSAGE,
+    BROADCAST_FAILED_USER_MESSAGE, SUBSCRIPTION_REQUIRED_MESSAGE, SUBSCRIPTION_REQUIRED_NO_NAME_MESSAGE,
+    SUBSCRIPTION_CALLBACK_MESSAGE, SUBSCRIPTION_CHECK_ERROR, SUBSCRIPTION_CHECK_ERROR_CALLBACK,
+    CARD_ALREADY_DRAWN_MESSAGE_WITH_NAME, CARD_ALREADY_DRAWN_MESSAGE_NO_NAME, INITIAL_RESOURCE_QUESTION_WITH_NAME,
+    INITIAL_RESOURCE_QUESTION_NO_NAME, INITIAL_RESOURCE_CONFIRMATION, REQUEST_TYPE_QUESTION_WITH_NAME,
+    REQUEST_TYPE_QUESTION_NO_NAME, REQUEST_TYPE_MENTAL_CONFIRMATION, REQUEST_TYPE_MENTAL_DRAWING,
+    REQUEST_TYPE_TYPED_CONFIRMATION, REQUEST_TYPE_TYPED_PROMPT, REQUEST_EMPTY_ERROR, REQUEST_TOO_SHORT_ERROR,
+    REQUEST_THANKS_MESSAGE, BUTTON_SKIP, BUTTON_MENTAL, BUTTON_TYPED, DEFAULT_NAME, UNKNOWN_TIME,
+    TIME_ERROR, NO_DATA, NOT_UPDATED, NOT_YET, N_A, CRITICAL_SQLITE_WEB_NOT_FOUND, CRITICAL_SQLITE_WEB_ERROR,
+    CRITICAL_DATABASE_INIT_FAILED, CRITICAL_DATABASE_FAILED, MAIN_MENU_CARD_OF_DAY, MAIN_MENU_EVENING_SUMMARY,
+    MAIN_MENU_UNIVERSE_HINT
 )
 # База данных и Сервисы
 from database.db import Database
@@ -145,21 +168,21 @@ class SubscriptionMiddleware:
                 if user_status.status not in allowed_statuses:
                     user_db_data = db.get_user(user_id); name = user_db_data.get("name") if user_db_data else None
                     link = f"https://t.me/{CHANNEL_ID.lstrip('@')}" # Формируем ссылку на канал
-                    text = f"{name}, рад видеть тебя. ✨ Для нашей совместной работы, пожалуйста, подпишись на <a href='{link}'>канал автора</a>. Это важно для поддержки пространства. После подписки просто нажми /start." if name else f"Рад видеть тебя. ✨ Для нашей совместной работы, пожалуйста, подпишись на <a href='{link}'>канал автора</a>. Это важно для поддержки пространства. После подписки просто нажми /start."
+                    text = SUBSCRIPTION_REQUIRED_MESSAGE.format(name=name, link=link) if name else SUBSCRIPTION_REQUIRED_NO_NAME_MESSAGE.format(link=link)
 
                     # Отвечаем в зависимости от типа события
                     if isinstance(event, types.Message):
                         await event.answer(text, disable_web_page_preview=True)
                     elif isinstance(event, types.CallbackQuery):
                         # Отвечаем на коллбэк и отправляем сообщение в чат
-                        await event.answer("Пожалуйста, подпишись на канал.", show_alert=True)
+                        await event.answer(SUBSCRIPTION_CALLBACK_MESSAGE, show_alert=True)
                         await event.message.answer(text, disable_web_page_preview=True)
                     return # Прерываем выполнение хэндлера
             except Exception as e:
                 logger.error(f"Subscription check failed for user {user_id}: {e}")
-                error_text = f"Не получается проверить твою подписку на канал {CHANNEL_ID}. Убедись, пожалуйста, что ты подписана, и попробуй снова через /start."
+                error_text = SUBSCRIPTION_CHECK_ERROR.format(channel_id=CHANNEL_ID)
                 if isinstance(event, types.Message): await event.answer(error_text)
-                elif isinstance(event, types.CallbackQuery): await event.answer("Не удается проверить подписку.", show_alert=False); await event.message.answer(error_text)
+                elif isinstance(event, types.CallbackQuery): await event.answer(SUBSCRIPTION_CHECK_ERROR_CALLBACK, show_alert=False); await event.message.answer(error_text)
                 return # Прерываем выполнение хэндлера
         # Если все проверки пройдены, передаем управление дальше
         # (Эта строка теперь недостижима из-за добавленной выше)
@@ -201,7 +224,7 @@ def make_start_handler(db, logger_service, user_manager):
                          if referrer_data and not referrer_data.get("bonus_available"):
                              await user_manager.set_bonus_available(referrer_id, True)
                              ref_name = referrer_data.get("name", "Друг")
-                             text = f"{ref_name}, ура! 🎉 Кто-то воспользовался твоей ссылкой! Теперь тебе доступна '💌 Подсказка Вселенной' в меню."
+                             text = REFERRAL_BONUS_MESSAGE.format(ref_name=ref_name)
                              try:
                                  await bot.send_message(referrer_id, text, reply_markup=await get_main_menu(referrer_id, db))
                                  await logger_service.log_action(referrer_id, "referral_bonus_granted", {"referred_user": user_id})
@@ -213,13 +236,13 @@ def make_start_handler(db, logger_service, user_manager):
         user_name = user_data.get("name")
         if not user_name:
             # Запрашиваем имя, если его нет
-            await message.answer("Здравствуй! ✨ Очень рад нашему знакомству. Подскажи, как мне лучше к тебе обращаться?",
-                                 reply_markup=types.InlineKeyboardMarkup(inline_keyboard=[[types.InlineKeyboardButton(text="Пропустить", callback_data="skip_name")]]))
+            await message.answer(START_NEW_USER_MESSAGE,
+                reply_markup=types.InlineKeyboardMarkup(inline_keyboard=[[types.InlineKeyboardButton(text=BUTTON_SKIP, callback_data="skip_name")]]))
             await state.set_state(UserState.waiting_for_name)
         else:
             # Приветствуем по имени и показываем меню
-            await message.answer(f"{user_name}, снова рад тебя видеть! 👋 Готова поработать с картой дня или подвести итог?",
-                                 reply_markup=await get_main_menu(user_id, db))
+            await message.answer(START_EXISTING_USER_MESSAGE.format(name=user_name),
+                reply_markup=await get_main_menu(user_id, db))
     return wrapped_handler
 
 # --- Команда /remind ---
@@ -228,15 +251,12 @@ def make_remind_handler(db, logger_service, user_manager):
     async def wrapped_handler(message: types.Message, state: FSMContext):
         user_id = message.from_user.id
         user_data = db.get_user(user_id)
-        name = user_data.get("name", "Друг")
+        name = user_data.get("name", DEFAULT_NAME)
         morning_reminder = user_data.get("reminder_time")
         evening_reminder = user_data.get("reminder_time_evening")
-        morning_text = f"Напоминание 'Карта дня' ✨: <b>{morning_reminder}</b> МСК" if morning_reminder else "Напоминание 'Карта дня' ✨: <b>отключено</b>"
-        evening_text = f"Напоминание 'Итог дня' 🌙: <b>{evening_reminder}</b> МСК" if evening_reminder else "Напоминание 'Итог дня' 🌙: <b>отключено</b>"
-        purpose_text = "⏰ Настроим ежедневные напоминания?"
-        instruction_text = ("Сначала введи удобное время для <b>утреннего</b> напоминания 'Карта дня' в формате <b>ЧЧ:ММ</b> (например, <code>09:00</code>).\nИли напиши <code>выкл</code>, чтобы отключить это напоминание.\n\n"
-                           f"<u>Текущие настройки:</u>\n- {morning_text}\n- {evening_text}")
-        text = f"{name}, привет!\n\n{purpose_text}\n\n{instruction_text}"
+        morning_text = MORNING_REMINDER_TEXT.format(time=morning_reminder) if morning_reminder else MORNING_REMINDER_DISABLED
+        evening_text = EVENING_REMINDER_TEXT.format(time=evening_reminder) if evening_reminder else EVENING_REMINDER_DISABLED
+        text = REMIND_MESSAGE.format(name=name, purpose_text=REMIND_PURPOSE_TEXT, instruction_text=REMIND_INSTRUCTION_TEXT.format(morning_text=morning_text, evening_text=evening_text))
         await message.answer(text, reply_markup=await get_main_menu(user_id, db)) # Показываем меню для контекста
         await state.set_state(UserState.waiting_for_morning_reminder_time) # Устанавливаем состояние
         await logger_service.log_action(user_id, "remind_command_invoked")
@@ -254,35 +274,21 @@ def make_broadcast_handler(db: Database, logger_service: LoggingService):
         # Получаем текст для рассылки (все, что после /broadcast )
         broadcast_text = message.text[len("/broadcast"):].strip()
         if not broadcast_text:
-            await message.reply("Пожалуйста, укажите текст для рассылки после команды.\n"
-                                "Пример: `/broadcast Привет! У бота обновления!`")
+            await message.reply(BROADCAST_NO_TEXT_MESSAGE)
             return
 
         # Фиксированный текст из вашего примера (можно оставить или использовать broadcast_text)
         # Замените на broadcast_text, если хотите отправлять текст из команды
-        text_to_send = """Привет! Надеюсь, у вас все хорошо. ✨
-
-Хочу поделиться новостями: я немного обновился, чтобы наша работа с картами и саморефлексией стала еще глубже и полезнее!
-
-1) У меня новое имя – "Ресурсный помощник". Мне кажется, оно лучше отражает то, чем я могу быть для вас полезен. 😊
-
-2) Теперь я умею составлять "Профиль пользователя" (загляните через команду /user_profile!), где бережно собираются важные моменты нашего взаимодействия. Узнайте себя немного лучше!
-
-3) Появился уютный вечерний ритуал "🌙 Итог дня" – всего пара минут, чтобы мягко завершить день и позаботиться о себе.
-
-Очень хочется снова пообщаться! Нажмите /start, чтобы увидеть обновленное меню и попробовать новинки.
-
-С нетерпением жду встречи!
-Ваш Ресурсный помощник ❤️"""
+        text_to_send = BROADCAST_TEST_MESSAGE
 
         # users = db.get_all_users() # <-- Закомментировано: Получение всех пользователей
         users = [457463804, 478901963, 517423026, 644771890, 683970407, 684097293, 685995409, 806894927, 834325767, 1068630660, 1123817690, 1159751971, 1264280911, 1348873495, 1664012269, 1821666039, 1853568101, 1887924167, 5741110759,6288394996, 865377684, 171507422] # <-- Добавлено: Тестирование на конкретном ID
         if not users:
             # Эта проверка становится менее актуальной, но не мешает
-            await message.reply("Не удалось определить пользователя для тестовой рассылки.")
+            await message.reply(BROADCAST_NO_USER_MESSAGE)
             return
 
-        await message.reply(f"Начинаю ТЕСТОВУЮ рассылку сообщения для {len(users)} пользователя (ID: {users[0]})...") # Уточнено сообщение админу
+        await message.reply(BROADCAST_START_MESSAGE.format(count=len(users), user_id=users[0])) # Уточнено сообщение админу
         await logger_service.log_action(user_id, "broadcast_test_started", {"target_user_id": users[0], "text_preview": text_to_send[:50]})
 
         success_count = 0
@@ -311,9 +317,9 @@ def make_broadcast_handler(db: Database, logger_service: LoggingService):
             # Пауза здесь не так критична, но можно оставить
             await asyncio.sleep(0.05)
 
-        result_text = f"✅ Тестовая рассылка завершена!\nУспешно отправлено: {success_count}\nНе удалось отправить: {fail_count}"
+        result_text = BROADCAST_RESULT_MESSAGE.format(success=success_count, failed=fail_count)
         if failed_users:
-            result_text += f"\nID пользователя с ошибкой: {failed_users[0]}"
+            result_text += BROADCAST_FAILED_USER_MESSAGE.format(user_id=failed_users[0])
         await message.reply(result_text)
         await logger_service.log_action(ADMIN_ID, "broadcast_test_finished", {"success": success_count, "failed": fail_count})
 
@@ -399,12 +405,12 @@ def make_remind_off_handler(db, logger_service, user_manager):
          try:
              await user_manager.clear_reminders(user_id)
              await logger_service.log_action(user_id, "reminders_cleared")
-             name = db.get_user(user_id).get("name", "Друг")
-             text = f"{name}, я отключил <b>все</b> напоминания для тебя (утреннее и вечернее). Если захочешь включить снова, используй /remind."
+             name = db.get_user(user_id).get("name", DEFAULT_NAME)
+             text = REMIND_OFF_SUCCESS_MESSAGE.format(name=name)
              await message.answer(text, reply_markup=await get_main_menu(user_id, db))
          except Exception as e:
              logger.error(f"Failed to disable reminders for user {user_id}: {e}", exc_info=True)
-             await message.answer("Ой, не получилось отключить напоминания...")
+             await message.answer(REMIND_OFF_ERROR_MESSAGE)
      return wrapped_handler
 
 # --- Остальные команды ---
@@ -412,10 +418,9 @@ def make_share_handler(db, logger_service):
     # ... (код share) ...
     async def wrapped_handler(message: types.Message):
         user_id = message.from_user.id
-        name = db.get_user(user_id).get("name", "Друг")
+        name = db.get_user(user_id).get("name", DEFAULT_NAME)
         ref_link = f"{BOT_LINK}?start=ref_{user_id}"
-        text = (f"{name}, хочешь поделиться этим ботом с друзьями?\nВот твоя персональная ссылка: {ref_link}\n\n"
-               f"Когда кто-нибудь перейдет по ней и начнет использовать бота, ты получишь доступ к '💌 Подсказке Вселенной' в главном меню! ✨")
+        text = SHARE_MESSAGE.format(name=name, ref_link=ref_link)
         await message.answer(text, reply_markup=await get_main_menu(user_id, db))
         await logger_service.log_action(user_id, "share_command")
     return wrapped_handler
@@ -425,9 +430,8 @@ def make_name_handler(db, logger_service, user_manager):
      async def wrapped_handler(message: types.Message, state: FSMContext):
          user_id = message.from_user.id
          name = db.get_user(user_id).get("name")
-         text = f"Твое текущее имя: <b>{name}</b>.\nХочешь изменить?" if name else "Как тебя зовут?"
-         text += "\nВведи новое имя или нажми 'Пропустить', если не хочешь указывать."
-         await message.answer(text, reply_markup=types.InlineKeyboardMarkup(inline_keyboard=[[types.InlineKeyboardButton(text="Пропустить", callback_data="skip_name")]]))
+         text = (NAME_CURRENT_MESSAGE.format(name=name) if name else NAME_NEW_MESSAGE) + NAME_INSTRUCTION
+         await message.answer(text, reply_markup=types.InlineKeyboardMarkup(inline_keyboard=[[types.InlineKeyboardButton(text=BUTTON_SKIP, callback_data="skip_name")]]))
          await state.set_state(UserState.waiting_for_name)
          await logger_service.log_action(user_id, "name_change_initiated")
      return wrapped_handler
@@ -436,8 +440,8 @@ def make_feedback_handler(db, logger_service):
     # ... (код feedback) ...
      async def wrapped_handler(message: types.Message, state: FSMContext):
          user_id = message.from_user.id
-         name = db.get_user(user_id).get("name", "Друг")
-         text = (f"{name}, хочешь поделиться идеей, как сделать меня лучше, или рассказать о проблеме?\nЯ внимательно читаю все сообщения! Напиши здесь все, что думаешь.")
+         name = db.get_user(user_id).get("name", DEFAULT_NAME)
+         text = FEEDBACK_MESSAGE.format(name=name)
          await message.answer(text, reply_markup=await get_main_menu(user_id, db)) # Оставляем меню
          await state.set_state(UserState.waiting_for_feedback)
          await logger_service.log_action(user_id, "feedback_initiated")
@@ -457,15 +461,15 @@ def make_user_profile_handler(db, logger_service):
         # Извлекаем данные из профиля с проверками
         mood = profile.get("mood", "неизвестно")
         mood_trend_list = [m for m in profile.get("mood_trend", []) if m != "unknown"]
-        mood_trend = " → ".join(mood_trend_list) if mood_trend_list else "нет данных"
+        mood_trend = " → ".join(mood_trend_list) if mood_trend_list else NO_DATA
         themes_list = profile.get("themes", [])
-        themes = ", ".join(themes_list) if themes_list and themes_list != ["не определено"] else "нет данных"
+        themes = ", ".join(themes_list) if themes_list and themes_list != ["не определено"] else NO_DATA
 
-        initial_resource = profile.get("initial_resource") or "нет данных"
-        final_resource = profile.get("final_resource") or "нет данных"
-        recharge_method = profile.get("recharge_method") or "нет данных"
+        initial_resource = profile.get("initial_resource") or NO_DATA
+        final_resource = profile.get("final_resource") or NO_DATA
+        recharge_method = profile.get("recharge_method") or NO_DATA
 
-        last_reflection_date = profile.get("last_reflection_date") or "пока не было"
+        last_reflection_date = profile.get("last_reflection_date") or NOT_YET
         reflection_count = profile.get("reflection_count", 0)
 
         response_count = profile.get("response_count", 0)
@@ -473,16 +477,15 @@ def make_user_profile_handler(db, logger_service):
         total_cards_drawn = profile.get("total_cards_drawn", 0)
 
         last_updated_dt = profile.get("last_updated")
-        last_updated = last_updated_dt.astimezone(TIMEZONE).strftime("%Y-%m-%d %H:%M") if isinstance(last_updated_dt, datetime) else "не обновлялся"
+        last_updated = last_updated_dt.astimezone(TIMEZONE).strftime("%Y-%m-%d %H:%M") if isinstance(last_updated_dt, datetime) else NOT_UPDATED
 
         text = (
-             f"📊 <b>{name}, твой профиль взаимодействия:</b>\n\n"
-             f"👤 <b>Состояние & Темы:</b>\n  - Настроение (последнее): {mood}\n  - Тренд настроения: {mood_trend}\n  - Ключевые темы (из карт и рефлексий): {themes}\n\n"
-             f"🌿 <b>Ресурс (последняя 'Карта дня'):</b>\n  - В начале: {initial_resource}\n  - В конце: {final_resource}\n  - Способ восстановления: {recharge_method}\n\n"
-             f"🌙 <b>Вечерняя Рефлексия:</b>\n  - Последний итог подведен: {last_reflection_date}\n  - Всего итогов подведено: {reflection_count}\n\n"
-             f"📈 <b>Статистика Активности:</b>\n  - Ответов в диалогах с картой: {response_count}\n  - Всего карт вытянуто: {total_cards_drawn}\n  - Дней активности: {days_active}\n\n"
-             f"⏱ <b>Профиль обновлен:</b> {last_updated} МСК\n\n"
-             f"<i>Этот профиль помогает мне лучше понимать тебя. Он учитывает твои ответы в 'Карте дня' и 'Итогах дня'.</i>"
+             USER_PROFILE_HEADER.format(name=name) +
+             USER_PROFILE_STATE_SECTION.format(mood=mood, mood_trend=mood_trend, themes=themes) +
+             USER_PROFILE_RESOURCE_SECTION.format(initial_resource=initial_resource, final_resource=final_resource, recharge_method=recharge_method) +
+             USER_PROFILE_REFLECTION_SECTION.format(last_reflection_date=last_reflection_date, reflection_count=reflection_count) +
+             USER_PROFILE_STATS_SECTION.format(response_count=response_count, total_cards_drawn=total_cards_drawn, days_active=days_active) +
+             USER_PROFILE_FOOTER.format(last_updated=last_updated)
          )
         await message.answer(text, reply_markup=await get_main_menu(user_id, db))
      return wrapped_handler
@@ -492,22 +495,22 @@ def make_admin_user_profile_handler(db, logger_service):
      # ... (код admin_user_profile) ...
      async def wrapped_handler(message: types.Message):
          user_id = message.from_user.id
-         if user_id != ADMIN_ID: await message.answer("Эта команда доступна только администратору."); return
+         if user_id != ADMIN_ID: await message.answer(ADMIN_ONLY_MESSAGE); return
 
          args = message.text.split()
          if len(args) < 2:
-             await message.answer("Укажи ID пользователя: /admin_user_profile <user_id>")
+             await message.answer(ADMIN_USER_PROFILE_USAGE)
              return
 
          try:
              target_user_id = int(args[1])
          except ValueError:
-             await message.answer("ID пользователя должен быть числом.")
+             await message.answer(ADMIN_USER_PROFILE_INVALID_ID)
              return
 
          user_info = db.get_user(target_user_id)
          if not user_info:
-             await message.answer(f"Пользователь с ID {target_user_id} не найден в таблице users.")
+             await message.answer(ADMIN_USER_PROFILE_NOT_FOUND.format(user_id=target_user_id))
              return
 
          profile = await build_user_profile(target_user_id, db)
@@ -515,17 +518,17 @@ def make_admin_user_profile_handler(db, logger_service):
          username = user_info.get("username", "N/A")
 
          # Извлекаем данные из профиля с проверками
-         mood = profile.get("mood", "N/A")
+         mood = profile.get("mood", N_A)
          mood_trend_list = [m for m in profile.get("mood_trend", []) if m != "unknown"]
-         mood_trend = " → ".join(mood_trend_list) if mood_trend_list else "N/A"
+         mood_trend = " → ".join(mood_trend_list) if mood_trend_list else N_A
          themes_list = profile.get("themes", [])
-         themes = ", ".join(themes_list) if themes_list and themes_list != ["не определено"] else "N/A"
+         themes = ", ".join(themes_list) if themes_list and themes_list != ["не определено"] else N_A
 
-         initial_resource = profile.get("initial_resource") or "N/A"
-         final_resource = profile.get("final_resource") or "N/A"
-         recharge_method = profile.get("recharge_method") or "N/A"
+         initial_resource = profile.get("initial_resource") or N_A
+         final_resource = profile.get("final_resource") or N_A
+         recharge_method = profile.get("recharge_method") or N_A
 
-         last_reflection_date = profile.get("last_reflection_date") or "N/A"
+         last_reflection_date = profile.get("last_reflection_date") or N_A
          reflection_count = profile.get("reflection_count", 0)
 
          response_count = profile.get("response_count", 0)
@@ -533,15 +536,15 @@ def make_admin_user_profile_handler(db, logger_service):
          total_cards_drawn = profile.get("total_cards_drawn", 0)
 
          last_updated_dt = profile.get("last_updated")
-         last_updated = last_updated_dt.astimezone(TIMEZONE).strftime("%Y-%m-%d %H:%M") if isinstance(last_updated_dt, datetime) else "N/A"
+         last_updated = last_updated_dt.astimezone(TIMEZONE).strftime("%Y-%m-%d %H:%M") if isinstance(last_updated_dt, datetime) else N_A
 
          text = (
-             f"👤 <b>Профиль пользователя:</b> <code>{target_user_id}</code>\n   Имя: {name}, Ник: @{username}\n\n"
-             f"<b>Состояние & Темы:</b>\n  Настроение: {mood}\n  Тренд: {mood_trend}\n  Темы: {themes}\n\n"
-             f"<b>Ресурс (последний 'Карта дня'):</b>\n  Начало: {initial_resource}\n  Конец: {final_resource}\n  Восстановление: {recharge_method}\n\n"
-             f"<b>Вечерняя Рефлексия:</b>\n  Последний итог: {last_reflection_date}\n  Всего итогов: {reflection_count}\n\n"
-             f"<b>Статистика Активности:</b>\n  Ответов (карта): {response_count}\n  Карт вытянуто: {total_cards_drawn}\n  Дней актив.: {days_active}\n\n"
-             f"<b>Обновлено:</b> {last_updated} МСК"
+             ADMIN_USER_PROFILE_HEADER.format(user_id=target_user_id, name=name, username=username) +
+             ADMIN_USER_PROFILE_STATE.format(mood=mood, mood_trend=mood_trend, themes=themes) +
+             ADMIN_USER_PROFILE_RESOURCE.format(initial_resource=initial_resource, final_resource=final_resource, recharge_method=recharge_method) +
+             ADMIN_USER_PROFILE_REFLECTION.format(last_reflection_date=last_reflection_date, reflection_count=reflection_count) +
+             ADMIN_USER_PROFILE_STATS.format(response_count=response_count, total_cards_drawn=total_cards_drawn, days_active=days_active) +
+             ADMIN_USER_PROFILE_FOOTER.format(last_updated=last_updated)
          )
          await message.answer(text)
          await logger_service.log_action(user_id, "admin_user_profile_viewed", {"target_user_id": target_user_id})
@@ -551,18 +554,18 @@ def make_users_handler(db, logger_service):
     # ... (код users) ...
     async def wrapped_handler(message: types.Message):
         user_id = message.from_user.id
-        if user_id != ADMIN_ID: await message.answer("Эта команда доступна только администратору."); return
+        if user_id != ADMIN_ID: await message.answer(ADMIN_ONLY_MESSAGE); return
 
         users = db.get_all_users()
         if not users:
-            await message.answer("В базе данных нет пользователей.")
+            await message.answer(USERS_NO_USERS_MESSAGE)
             return
 
         excluded_users = set(NO_LOGS_USERS) if NO_LOGS_USERS else set()
         filtered_users = [uid for uid in users if uid not in excluded_users]
 
         if not filtered_users:
-            await message.answer("Нет пользователей для отображения (все исключены или список пуст).")
+            await message.answer(USERS_NO_FILTERED_MESSAGE)
             return
 
         user_list = []
@@ -572,9 +575,9 @@ def make_users_handler(db, logger_service):
                 logger.warning(f"User ID {uid} found by get_all_users but not found by get_user. Skipping.")
                 continue
 
-            name = user_data.get("name", "Без имени")
-            username = user_data.get("username", "Нет никнейма")
-            last_action_time = "Нет действий"
+            name = user_data.get("name", USERS_NO_NAME)
+            username = user_data.get("username", USERS_NO_USERNAME)
+            last_action_time = USERS_NO_ACTIONS
             last_action_timestamp_iso_or_dt = "1970-01-01T00:00:00+00:00" # Для сортировки по умолчанию
 
             # Получаем последнее действие для пользователя
@@ -597,7 +600,7 @@ def make_users_handler(db, logger_service):
                     if last_action_dt:
                          last_action_time = last_action_dt.strftime("%Y-%m-%d %H:%M")
                     else:
-                         last_action_time = "Ошибка времени"
+                         last_action_time = USERS_TIME_ERROR
                 except (ValueError, TypeError) as e:
                     logger.warning(f"Error parsing last action timestamp for user {uid}: {raw_timestamp}, error: {e}")
                     last_action_time = f"Ошибка ({raw_timestamp})"
@@ -823,7 +826,7 @@ def make_bonus_request_handler(db, logger_service, user_manager):
              return # Выходим, если бонус недоступен
 
          # Выбираем случайную подсказку
-         advice = random.choice(UNIVERSE_ADVICE)
+         advice = random.choice(UNIVERSE_ADVICE_LIST)
          text = f"{name}, вот послание Вселенной для тебя:\n\n<i>{advice}</i>" # Используем HTML для курсива
 
          await message.answer(text, reply_markup=await get_main_menu(user_id, db))
