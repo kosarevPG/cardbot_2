@@ -12,9 +12,8 @@ logger = logging.getLogger(__name__)
 
 # --- Логика запуска и проведения опросника ---
 
-async def start_mak_quiz(message: types.Message, state: FSMContext, logger_service: LoggingService, bot: Bot):
+async def start_mak_quiz(user_id: int, state: FSMContext, logger_service: LoggingService, bot: Bot):
     """Начинает опросник после завершения обучающего курса."""
-    user_id = message.from_user.id
     await logger_service.log_action(user_id, "quiz_started", {"quiz_id": "mak_tutorial_quiz"})
     
     await bot.send_message(user_id, "Отлично! Обучение завершено. А теперь небольшой опрос, чтобы закрепить знания и собрать обратную связь. Это займет 4-6 минут.")

@@ -155,11 +155,16 @@ def register_handlers(dp: Dispatcher):
 async def main():
     logger.info("Starting bot...")
     
+    # Инициализация PostgreSQL
+    try:
+        db = Database()
+    except Exception as e:
+        logger.critical(f"Could not connect to PostgreSQL: {e}")
+        return
+
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     storage = MemoryStorage()
     dp = Dispatcher(storage=storage)
-
-    db = Database(path=os.path.join(DATA_DIR, "bot.db"))
     db.bot = bot
     
     scheduler = AsyncIOScheduler(timezone=TIMEZONE)

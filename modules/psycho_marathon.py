@@ -172,14 +172,7 @@ async def send_post_and_schedule_next(bot: Bot, scheduler: AsyncIOScheduler, use
         # --- ИЗМЕНЕНИЕ: Запускаем опросник вместо простого завершения ---
         if program_id == "mak_tutorial":
             await bot.send_message(user_id, "Вы завершили основной блок обучения! 🎉")
-            # Передаем message-like объект для старта квиза
-            mock_message = types.Message(
-                message_id=1,
-                date=datetime.now(),
-                chat=types.Chat(id=user_id, type="private"), 
-                from_user=types.User(id=user_id, is_bot=False, first_name="User")
-            )
-            await start_mak_quiz(mock_message, state, logger_service, bot)
+            await start_mak_quiz(user_id, state, logger_service, bot)
         else:
             await bot.send_message(user_id, "Поздравляем! Вы завершили этот блок! 🎉")
             await state.clear()
